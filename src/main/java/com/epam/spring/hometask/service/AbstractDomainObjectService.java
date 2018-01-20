@@ -29,7 +29,7 @@ public interface AbstractDomainObjectService<T extends DomainObject> {
 	 * @param object
 	 *            Object to remove
 	 */
-	public void remove(@Nonnull T object);
+	public boolean remove(@Nonnull T object);
 
 	/**
 	 * Getting object by id from storage
