@@ -2,8 +2,10 @@ package com.epam.spring.hometask.domain;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
@@ -12,79 +14,97 @@ import java.util.stream.LongStream;
  */
 public class Auditorium {
 
-    private String name;
+	private String name;
 
-    private long numberOfSeats;
+	private long numberOfSeats;
 
-    private Set<Long> vipSeats = Collections.emptySet();
+	private Set<Long> vipSeats = Collections.emptySet();
 
-    public Auditorium() {
-    }
+	public Auditorium() {
+	}
 
-    /**
-     * Counts how many vip seats are there in supplied <code>seats</code>
-     * 
-     * @param seats
-     *            Seats to process
-     * @return number of vip seats in request
-     */
-    public long countVipSeats(Collection<Long> seats) {
-        return seats.stream().filter(seat -> vipSeats.contains(seat)).count();
-    }
+	private NavigableSet<Ticket> tickets = new TreeSet<>();
 
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Counts how many vip seats are there in supplied <code>seats</code>
+	 * 
+	 * @param seats
+	 *            Seats to process
+	 * @return number of vip seats in request
+	 */
+	public long countVipSeats(Collection<Long> seats) {
+		return seats.stream().filter(seat -> vipSeats.contains(seat)).count();
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public long getNumberOfSeats() {
-        return numberOfSeats;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setNumberOfSeats(long numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
-    }
-    
-    public Set<Long> getAllSeats() {
-        return LongStream.range(1, numberOfSeats+1).boxed().collect(Collectors.toSet());
-    }
+	public long getNumberOfSeats() {
+		return numberOfSeats;
+	}
 
-    public Set<Long> getVipSeats() {
-        return vipSeats;
-    }
+	public void setNumberOfSeats(long numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
 
-    public void setVipSeats(Set<Long> vipSeats) {
-        this.vipSeats = vipSeats;
-    }
+	public Set<Long> getAllSeats() {
+		return LongStream.range(1, numberOfSeats + 1).boxed().collect(Collectors.toSet());
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
+	public Set<Long> getVipSeats() {
+		return vipSeats;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Auditorium other = (Auditorium) obj;
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
-    }
+	public void setVipSeats(Set<Long> vipSeats) {
+		this.vipSeats = vipSeats;
+	}
+
+	public boolean isSeatVip(Long id) {
+		return vipSeats.contains(id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name);
+	}
+
+	public void addTicket(Ticket ticket) {
+		tickets.add(ticket);
+	}
+
+	public void remove(Ticket ticket) {
+		tickets.remove(ticket);
+	}
+
+	public NavigableSet<Ticket> getTickets() {
+		return tickets;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Auditorium other = (Auditorium) obj;
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		return true;
+	}
 
 }

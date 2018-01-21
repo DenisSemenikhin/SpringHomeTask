@@ -21,7 +21,7 @@ public class BirthdayDiscount implements DiscountService {
 	}
 
 	@Override
-	public byte getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
+	public int getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
 		LocalDate dateAirDate = LocalDate.now();
 		LocalDate dateUserBirthday = user.getDateBirthday();
 		long difference = ChronoUnit.DAYS.between(dateAirDate, dateUserBirthday);

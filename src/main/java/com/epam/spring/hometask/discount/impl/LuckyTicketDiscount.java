@@ -8,14 +8,14 @@ import com.epam.spring.hometask.service.DiscountService;
 
 public class LuckyTicketDiscount implements DiscountService {
 
-	private byte luckyDiscount = 0;
+	private int luckyDiscount = 0;
 	private int nextLuckyTicketRate;
 
-	public byte getLuckyDiscount() {
+	public int getLuckyDiscount() {
 		return luckyDiscount;
 	}
 
-	public void setLuckyDiscount(byte luckyDiscount) {
+	public void setLuckyDiscount(int luckyDiscount) {
 		this.luckyDiscount = luckyDiscount;
 	}
 
@@ -28,7 +28,7 @@ public class LuckyTicketDiscount implements DiscountService {
 	}
 
 	@Override
-	public byte getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
+	public int getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
 		if (nextLuckyTicketRate != 0) {
 			if (user.isRegistrationStatus()) {
 				return numberOfTickets % nextLuckyTicketRate == 0 ? luckyDiscount : 0;

@@ -30,10 +30,10 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 	@Override
-	public byte getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
-		byte maximumDiscount = 0;
+	public int getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
+		int maximumDiscount = 0;
 		for (DiscountService discountService : discounts) {
-			byte currentDiscount = discountService.getDiscount(user, event, airDateTime, numberOfTickets);
+			int currentDiscount = discountService.getDiscount(user, event, airDateTime, numberOfTickets);
 			if (currentDiscount > maximumDiscount) {
 				maximumDiscount = currentDiscount;
 			}

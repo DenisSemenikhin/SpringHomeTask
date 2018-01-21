@@ -10,4 +10,5 @@
 	<import resource="UsersSpringContext.xml" />
 	<import resource="AuditoriumSpringContext.xml" />
 	<import resource="DiscountServiceSpringContext.xml" />
+	<import resource="BookingServiceSpringContext.xml" />
 </beans>
