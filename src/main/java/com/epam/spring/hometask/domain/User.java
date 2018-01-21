@@ -1,5 +1,6 @@
 package com.epam.spring.hometask.domain;
 
+import java.time.LocalDate;
 import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.TreeSet;
@@ -9,85 +10,105 @@ import java.util.TreeSet;
  */
 public class User extends DomainObject {
 
-    private String firstName;
+	private LocalDate dateBirthday;
 
-    private String lastName;
+	private String firstName;
 
-    private String email;
+	private String lastName;
 
-    private NavigableSet<Ticket> tickets = new TreeSet<>();
+	private String email;
 
-    public String getFirstName() {
-        return firstName;
-    }
+	private NavigableSet<Ticket> tickets = new TreeSet<>();
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	private boolean registrationStatus;
 
-    public String getLastName() {
-        return lastName;
-    }
+	public boolean isRegistrationStatus() {
+		return registrationStatus;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setRegistrationStatus(boolean registrationStatus) {
+		this.registrationStatus = registrationStatus;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public LocalDate getDateBirthday() {
+		return dateBirthday;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setDateBirthday(LocalDate dateBirthday) {
+		this.dateBirthday = dateBirthday;
+	}
 
-    public NavigableSet<Ticket> getTickets() {
-        return tickets;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setTickets(NavigableSet<Ticket> tickets) {
-        this.tickets = tickets;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, email);
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        User other = (User) obj;
-        if (email == null) {
-            if (other.email != null) {
-                return false;
-            }
-        } else if (!email.equals(other.email)) {
-            return false;
-        }
-        if (firstName == null) {
-            if (other.firstName != null) {
-                return false;
-            }
-        } else if (!firstName.equals(other.firstName)) {
-            return false;
-        }
-        if (lastName == null) {
-            if (other.lastName != null) {
-                return false;
-            }
-        } else if (!lastName.equals(other.lastName)) {
-            return false;
-        }
-        return true;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public NavigableSet<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(NavigableSet<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(firstName, lastName, email);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null) {
+				return false;
+			}
+		} else if (!email.equals(other.email)) {
+			return false;
+		}
+		if (firstName == null) {
+			if (other.firstName != null) {
+				return false;
+			}
+		} else if (!firstName.equals(other.firstName)) {
+			return false;
+		}
+		if (lastName == null) {
+			if (other.lastName != null) {
+				return false;
+			}
+		} else if (!lastName.equals(other.lastName)) {
+			return false;
+		}
+		return true;
+	}
 
 }

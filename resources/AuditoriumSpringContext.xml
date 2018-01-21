@@ -21,11 +21,10 @@
 	</property>
 	
 	</bean>
-	<bean id="propertiesPlaceholder"
+	<bean id="auditoriumPropertiesPlaceholder"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	<property name="location">
 	<value>classpath:auditoriums.properties</value>
-		
 	</property>
 	<property name="ignoreUnresolvablePlaceholders" value="true"></property>
 	</bean>

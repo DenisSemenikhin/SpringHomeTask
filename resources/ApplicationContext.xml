@@ -9,4 +9,5 @@
 	<import resource="EventSpringContext.xml" />
 	<import resource="UsersSpringContext.xml" />
 	<import resource="AuditoriumSpringContext.xml" />
+	<import resource="DiscountServiceSpringContext.xml" />
 </beans>
