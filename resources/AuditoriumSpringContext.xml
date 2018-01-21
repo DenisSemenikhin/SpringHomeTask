@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+
+	<bean id="auditoriumServiceImpl"
+		class="com.epam.spring.hometask.service.impl.AuditoriumServiceImpl">
+	<property name="auditoriums">
+		<map key-type="${auditorium.first.name}"
+			value-type="auditorium_first_stage">
+		<entry key="${auditorium.first.name}"
+			value-ref="firstAuditorium">
+		</entry>
+		<entry key="${auditorium.second.name}"
+			value-ref="secondAuditorium">
+		</entry>
+		</map>
+	</property>
+	
+	</bean>
+	<bean id="propertiesPlaceholder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="location">
+	<value>classpath:auditoriums.properties</value>
+		
+	</property>
+	<property name="ignoreUnresolvablePlaceholders" value="true"></property>
+	</bean>
+	
+		
+	
+	<bean id="firstAuditorium"
+		class="com.epam.spring.hometask.domain.Auditorium">
+		<property name="name" value="auditorium.first.name"></property>
+		<property name="numberOfSeats"
+			value="auditorium.first.numberOfSeats">
+		</property>
+		<property name="vipSeats"
+			value="#{'${auditorium.first.vipSeats}'.split(',')}">
+		</property>
+	</bean>
+
+	<bean id="secondAuditorium"
+		class="com.epam.spring.hometask.domain.Auditorium">
+		<property name="name" value="auditorium.second.name"></property>
+		<property name="numberOfSeats"
+			value="auditorium.second.numberOfSeats">
+		</property>
+		<property name="vipSeats"
+			value="#{'${auditorium.second.vipSeats}'.split(',')}">
+		</property>
+	</bean>
+</beans>
