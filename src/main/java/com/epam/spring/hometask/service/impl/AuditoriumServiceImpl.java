@@ -1,5 +1,6 @@
 package com.epam.spring.hometask.service.impl;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 
 	@Override
 	public Set<Auditorium> getAll() {
-		return (Set<Auditorium>) auditoriums.values();
+		return new HashSet(auditoriums.values());
 	}
 
 	@Override

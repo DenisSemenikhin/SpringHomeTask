@@ -1,5 +1,6 @@
 package com.epam.spring.hometask.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +45,7 @@ public class UserDaoServiceImpl implements UserDaoService {
 
 	@Override
 	public User getUserByEmail(String email) {
-		List<User> usersList = (List<User>) users.values();
+		List<User> usersList = new ArrayList<User>(users.values());
 		for (User user : usersList) {
 			if (user.getEmail().equals(email)) {
 				return user;

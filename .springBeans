@@ -7,8 +7,20 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
+<<<<<<< HEAD
 		<config>resources/UsersSpringContext.xml</config>
 		<config>resources/EventSpringContext.xml</config>
+		<config>resources/AuditoriumSpringContext.xml</config>
+		<config>resources/ApplicationContext.xml</config>
+		<config>resources/BookingServiceSpringContext.xml</config>
+=======
+		<config>src/main/resources/eventSpringContext.xml</config>
+		<config>src/main/resources/bookingServiceSpringContext.xml</config>
+		<config>src/main/resources/discountServiceSpringContext.xml</config>
+		<config>src/main/resources/applicationContext.xml</config>
+		<config>src/main/resources/usersSpringContext.xml</config>
+		<config>src/main/resources/auditoriumSpringContext.xml</config>
+>>>>>>> 28aa942e05737760600a13594fcbe821c9a7b41d
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
