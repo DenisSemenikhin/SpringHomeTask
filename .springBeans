@@ -7,8 +7,12 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>resources/UsersSpringContext.xml</config>
-		<config>resources/EventSpringContext.xml</config>
+		<config>src/main/resources/eventSpringContext.xml</config>
+		<config>src/main/resources/bookingServiceSpringContext.xml</config>
+		<config>src/main/resources/discountServiceSpringContext.xml</config>
+		<config>src/main/resources/applicationContext.xml</config>
+		<config>src/main/resources/usersSpringContext.xml</config>
+		<config>src/main/resources/auditoriumSpringContext.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

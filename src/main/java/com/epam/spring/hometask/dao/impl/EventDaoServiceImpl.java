@@ -43,7 +43,7 @@ public class EventDaoServiceImpl implements EventDaoService {
 
 	@Override
 	public Event getByName(String eventName) {
-		List<Event> eventList = (List<Event>) events.values();
+		List<Event> eventList = new ArrayList<Event>(events.values());
 		for (Event event : eventList) {
 			if (event.getName().equals(eventName)) {
 				return event;

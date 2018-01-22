@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.UserService;
 
-@ContextConfiguration(locations = "classpath:ApplicationContext.xml")
+@ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
 	private static final Long ID = 1l;
@@ -31,7 +31,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 		user.setEmail(EMAIL);
 	}
 
-	@Test(description = "Testing User save() and getById(), remove()")
+	@Test(groups = TestConstants.GROUP_USER_SAVE, description = "Testing User save() and getById(), remove()")
 	public void userServiceSaveTest() {
 		userService.save(user);
 
