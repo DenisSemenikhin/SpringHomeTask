@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+
+	
+
+	<bean id="discountPropertiesPlaceholder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="location">
+	<value>classpath:discount.properties</value>
+	</property>
+	<property name="ignoreUnresolvablePlaceholders" value="true"></property>
+	</bean>
+
+	
+	<bean id="discountServiceImpl" class="com.epam.spring.hometask.service.impl.DiscountServiceImpl">
+	<property name="discounts">
+		<list>
+			<bean id="birthdayDiscount"
+				class="com.epam.spring.hometask.discount.impl.DiscountStrategy" factory-method="getDiscount">
+			<constructor-arg ref="birthdayDiscountImpl"></constructor-arg>
+			</bean>
+
+			<bean id="luckyDiscount"
+				class="com.epam.spring.hometask.discount.impl.DiscountStrategy" factory-method="getDiscount">
+			<constructor-arg ref="luckyTicketDiscountImpl"></constructor-arg>
+			</bean>
+		</list>
+	</property>
+	<property name="userService" ref="userServiceImpl">
+	</property>
+	</bean>
+	
+	<bean name="luckyTicketDiscountImpl" class="com.epam.spring.hometask.discount.impl.LuckyTicketDiscount">
+	<property name="luckyDiscount" value="${discount.lucky.discount}"></property>
+	<property name="nextLuckyTicketRate" value="${discount.next.lucky.ticket.rate}"></property>
+	</bean>
+	
+	<bean name="birthdayDiscountImpl" class="com.epam.spring.hometask.discount.impl.BirthdayDiscount">
+	<property name="birthdayDiscount" value="${discount.birthday.discount}"></property>
+	</bean>
+	
+	
+	
+</beans>
