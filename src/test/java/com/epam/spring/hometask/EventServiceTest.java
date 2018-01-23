@@ -29,9 +29,9 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
 	private EventService eventService;
-	private Event event;
 	@Autowired
 	private AuditoriumService auditoriumService;
+	private Event event;
 
 	@BeforeClass
 	public void initTest() {
@@ -69,6 +69,7 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
 		Assert.assertEquals(expectedEvents, null);
 		expectedEvents = eventService.getForDateRange(LocalDate.from(DATE_TIME.plusDays(1)), LocalDate.from(DATE_TIME.plusDays(2)));
 		Assert.assertEquals(expectedEvents, null);
+		eventService.save(event);
 
 	}
 

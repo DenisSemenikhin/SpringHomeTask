@@ -21,7 +21,7 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 
 	@Override
 	public Set<Auditorium> getAll() {
-		return new HashSet(auditoriums.values());
+		return new HashSet<Auditorium>(auditoriums.values());
 	}
 
 	@Override

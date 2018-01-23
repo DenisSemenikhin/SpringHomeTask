@@ -57,7 +57,7 @@ public class EventDaoServiceImpl implements EventDaoService {
 	public Set<Event> getForDateRange(LocalDate dateFrom, LocalDate dateTo) {
 		List<Event> eventList = new ArrayList<Event>(events.values());
 		@SuppressWarnings("unchecked")
-		Set<Event> resultEventsList = new HashSet();
+		Set<Event> resultEventsList = new HashSet<Event>();
 		for (Event event : eventList) {
 			if (event.airsOnDates(dateFrom, dateTo)) {
 				resultEventsList.add(event);
@@ -70,7 +70,7 @@ public class EventDaoServiceImpl implements EventDaoService {
 	public Set<Event> getNextEvents(LocalDateTime dateTo) {
 		List<Event> eventList = new ArrayList<Event>(events.values());
 		@SuppressWarnings("unchecked")
-		Set<Event> resultEventsList = new HashSet();
+		Set<Event> resultEventsList = new HashSet<Event>();
 		for (Event event : eventList) {
 			if (event.airsOnDates(LocalDateTime.now(), dateTo)) {
 				resultEventsList.add(event);
