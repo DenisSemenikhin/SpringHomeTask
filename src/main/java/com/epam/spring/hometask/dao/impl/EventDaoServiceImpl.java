@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import com.epam.spring.hometask.dao.EventDaoService;
 import com.epam.spring.hometask.domain.Event;
 
+@Repository
 public class EventDaoServiceImpl implements EventDaoService {
 
 	private static Map<Long, Event> events = new HashMap<Long, Event>();

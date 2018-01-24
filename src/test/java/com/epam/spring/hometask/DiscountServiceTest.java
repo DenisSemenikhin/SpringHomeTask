@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -16,7 +17,7 @@ import com.epam.spring.hometask.domain.EventRating;
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.DiscountService;
 
-@ContextConfiguration(locations = "classpath:applicationContext.xml")
+@ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class DiscountServiceTest extends AbstractTestNGSpringContextTests {
 
 	// User
@@ -66,25 +67,29 @@ public class DiscountServiceTest extends AbstractTestNGSpringContextTests {
 
 	@Test(description = "invoke lucky discount")
 	public void getDiscountEachTenthTicket() {
-		LocalDateTime airDateTime = LocalDateTime.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).minusDays(2);
+		LocalDateTime airDateTime = LocalDateTime
+				.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).minusDays(2);
 		double discountActual = discountService.getDiscount(user, event, airDateTime, 20);
 		Assert.assertEquals(discountActual, EXPECTED_HAPPY_DISCOUNT);
 	}
 
 	@Test(description = "invoke birthday discount")
 	public void getDiscountBirthday() {
-		LocalDateTime airDateTimeEventOnTime = LocalDateTime.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00);
+		LocalDateTime airDateTimeEventOnTime = LocalDateTime.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday,
+				monthOfUserBirthday, 00, 00);
 		double discountActualWithinOneDay = discountService.getDiscount(user, event, airDateTimeEventOnTime, 9);
 		Assert.assertEquals(discountActualWithinOneDay, EXPECTED_BIRTHDAY_DISCOUNT);
 
-		LocalDateTime airDateTimeEventFiveDay = LocalDateTime.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).plusDays(5);
+		LocalDateTime airDateTimeEventFiveDay = LocalDateTime
+				.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).plusDays(5);
 		double discountActualWithinFiveDay = discountService.getDiscount(user, event, airDateTimeEventFiveDay, 9);
 		Assert.assertEquals(discountActualWithinFiveDay, EXPECTED_BIRTHDAY_DISCOUNT);
 	}
 
 	@Test(description = "invoke all discounts")
 	public void getDiscountMatchAlllRequirements() {
-		LocalDateTime airDateTimeEventFiveDay = LocalDateTime.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).plusDays(2);
+		LocalDateTime airDateTimeEventFiveDay = LocalDateTime
+				.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).plusDays(2);
 		double discountActualWithinFiveDay = discountService.getDiscount(user, event, airDateTimeEventFiveDay, 10);
 		Assert.assertEquals(discountActualWithinFiveDay, EXPECTED_HAPPY_DISCOUNT);
 	}

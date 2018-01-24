@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -17,7 +18,7 @@ import com.epam.spring.hometask.domain.EventRating;
 import com.epam.spring.hometask.service.AuditoriumService;
 import com.epam.spring.hometask.service.EventService;
 
-@ContextConfiguration(locations = "classpath:applicationContext.xml")
+@ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class EventServiceTest extends AbstractTestNGSpringContextTests {
 
 	private static final Long ID = 1l;
@@ -63,11 +64,14 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
 	@Test(groups = TestConstants.GROUP_EVENT_TEST, description = "Testing GetForDateRange")
 	public void eventServiceGetForDateRange() {
 		eventService.save(event);
-		Set<Event> expectedEvents = eventService.getForDateRange(LocalDate.from(DATE_TIME.minusDays(3)), LocalDate.from(DATE_TIME.plusDays(3)));
+		Set<Event> expectedEvents = eventService.getForDateRange(LocalDate.from(DATE_TIME.minusDays(3)),
+				LocalDate.from(DATE_TIME.plusDays(3)));
 		Assert.assertTrue(expectedEvents.size() == 1);
-		expectedEvents = eventService.getForDateRange(LocalDate.from(DATE_TIME.minusDays(6)), LocalDate.from(DATE_TIME.minusDays(2)));
+		expectedEvents = eventService.getForDateRange(LocalDate.from(DATE_TIME.minusDays(6)),
+				LocalDate.from(DATE_TIME.minusDays(2)));
 		Assert.assertEquals(expectedEvents, null);
-		expectedEvents = eventService.getForDateRange(LocalDate.from(DATE_TIME.plusDays(1)), LocalDate.from(DATE_TIME.plusDays(2)));
+		expectedEvents = eventService.getForDateRange(LocalDate.from(DATE_TIME.plusDays(1)),
+				LocalDate.from(DATE_TIME.plusDays(2)));
 		Assert.assertEquals(expectedEvents, null);
 		eventService.save(event);
 

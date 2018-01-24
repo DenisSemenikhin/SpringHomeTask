@@ -5,12 +5,17 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.epam.spring.hometask.dao.EventDaoService;
 import com.epam.spring.hometask.domain.Event;
 import com.epam.spring.hometask.service.EventService;
 
+@Service
 public class EventServiceImpl implements EventService {
 
+	@Autowired
 	private EventDaoService eventDaoService;
 
 	public EventDaoService getEventDaoService() {

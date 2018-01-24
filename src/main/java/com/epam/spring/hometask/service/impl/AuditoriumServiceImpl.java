@@ -4,11 +4,17 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import com.epam.spring.hometask.domain.Auditorium;
 import com.epam.spring.hometask.service.AuditoriumService;
 
+@Service
 public class AuditoriumServiceImpl implements AuditoriumService {
 
+	@Resource(name = "bunchOfAuditoriums")
 	private Map<String, Auditorium> auditoriums;
 
 	public Map<String, Auditorium> getAuditoriums() {
