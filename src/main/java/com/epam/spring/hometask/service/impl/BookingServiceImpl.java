@@ -4,6 +4,11 @@ import java.time.LocalDateTime;
 import java.util.NavigableMap;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.epam.spring.hometask.domain.Auditorium;
 import com.epam.spring.hometask.domain.Event;
 import com.epam.spring.hometask.domain.EventRating;
@@ -15,14 +20,21 @@ import com.epam.spring.hometask.service.DiscountService;
 import com.epam.spring.hometask.service.EventService;
 import com.epam.spring.hometask.service.UserService;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
+	@Resource(name = "hightEventRate")
 	private double hightEventRate = 1.2;
+	@Resource(name = "vipSeatRate")
 	private double vipSeatRate = 2;
 
+	@Autowired
 	private DiscountService discountService;
+	@Autowired
 	private AuditoriumService auditoriumService;
+	@Autowired
 	private EventService eventService;
+	@Autowired
 	private UserService userService;
 
 	@Override

@@ -34,11 +34,7 @@ public class UserDaoServiceImpl implements UserDaoService {
 
 	@Override
 	public User getById(Long id) {
-		if (users.containsKey(id)) {
-			return users.get(id);
-		} else {
-			return null;
-		}
+		return users.get(id);
 	}
 
 	@Override

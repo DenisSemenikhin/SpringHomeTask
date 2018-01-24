@@ -27,12 +27,7 @@ public class EventDaoServiceImpl implements EventDaoService {
 
 	@Override
 	public boolean remove(Event event) {
-		if (events.containsKey(event.getId())) {
-			events.remove(event.getId());
-			return true;
-		} else {
-			return false;
-		}
+		return events.remove(event.getId(), event);
 	}
 
 	@Override

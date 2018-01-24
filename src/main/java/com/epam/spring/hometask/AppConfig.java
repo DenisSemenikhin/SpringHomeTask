@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import com.epam.spring.hometask.config.BirthDayDiscountConfig;
+import com.epam.spring.hometask.config.BookingConfig;
 import com.epam.spring.hometask.config.FirstAuditoriumConfig;
 import com.epam.spring.hometask.config.LuckyTicketDiscountConfig;
 import com.epam.spring.hometask.config.SecondAuditoriumConfig;
@@ -33,6 +34,9 @@ public class AppConfig {
 	private BirthDayDiscountConfig birthDayDiscountConfig;
 	@Autowired
 	private LuckyTicketDiscountConfig luckyTicketDiscountConfig;
+
+	@Autowired
+	private BookingConfig bookingConfig;
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholder() {
@@ -72,6 +76,16 @@ public class AppConfig {
 		luckyTicketDiscount.setNextLuckyTicketRate(luckyTicketDiscountConfig.getNextTicketRate());
 		bunchOfDiscounts.add(luckyTicketDiscount);
 		return bunchOfDiscounts;
+	}
+
+	@Bean(name = "hightEventRate")
+	public double hightEventRate() {
+		return bookingConfig.getHightEventRate();
+	}
+
+	@Bean(name = "vipSeatRate")
+	public double vipSeatRate() {
+		return bookingConfig.getVipSeatRate();
 	}
 
 }
