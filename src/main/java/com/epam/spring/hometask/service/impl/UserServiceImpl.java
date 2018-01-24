@@ -2,12 +2,17 @@ package com.epam.spring.hometask.service.impl;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.epam.spring.hometask.dao.UserDaoService;
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
 	private UserDaoService userDaoService;
 
 	public UserDaoService getUserDaoService() {

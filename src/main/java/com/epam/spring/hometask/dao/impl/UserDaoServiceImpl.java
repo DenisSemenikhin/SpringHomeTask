@@ -6,9 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.epam.spring.hometask.dao.UserDaoService;
 import com.epam.spring.hometask.domain.User;
 
+@Repository
 public class UserDaoServiceImpl implements UserDaoService {
 
 	private static Map<Long, User> users = new HashMap<Long, User>();
