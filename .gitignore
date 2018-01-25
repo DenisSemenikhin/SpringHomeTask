@@ -2,6 +2,7 @@
 .classpath
 .project
 .settings
+<<<<<<< HEAD
 
 /target/*
 .classpath
@@ -9,3 +10,10 @@
 .springBeans
 *.iml
 .idea/*
+=======
+/target/*
+.project
+.settings/*
+.idea/*
+*.iml
+>>>>>>> origin/master
