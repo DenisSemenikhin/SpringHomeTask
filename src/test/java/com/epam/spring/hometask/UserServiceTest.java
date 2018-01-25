@@ -2,6 +2,7 @@ package com.epam.spring.hometask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -10,7 +11,7 @@ import org.testng.annotations.Test;
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.UserService;
 
-@ContextConfiguration(locations = "classpath:ApplicationContext.xml")
+@ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
 	private static final Long ID = 1l;
@@ -31,7 +32,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 		user.setEmail(EMAIL);
 	}
 
-	@Test(description = "Testing User save() and getById(), remove()")
+	@Test(groups = TestConstants.GROUP_USER_TEST, description = "Testing User save() and getById(), remove()")
 	public void userServiceSaveTest() {
 		userService.save(user);
 

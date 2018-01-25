@@ -4,6 +4,11 @@ import java.time.LocalDateTime;
 import java.util.NavigableMap;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.epam.spring.hometask.domain.Auditorium;
 import com.epam.spring.hometask.domain.Event;
 import com.epam.spring.hometask.domain.EventRating;
@@ -15,25 +20,34 @@ import com.epam.spring.hometask.service.DiscountService;
 import com.epam.spring.hometask.service.EventService;
 import com.epam.spring.hometask.service.UserService;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
+	@Resource(name = "hightEventRate")
 	private double hightEventRate = 1.2;
+	@Resource(name = "vipSeatRate")
 	private double vipSeatRate = 2;
 
+	@Autowired
 	private DiscountService discountService;
+	@Autowired
 	private AuditoriumService auditoriumService;
+	@Autowired
 	private EventService eventService;
+	@Autowired
 	private UserService userService;
 
 	@Override
 	public double getTicketsPrice(Event event, LocalDateTime dateTime, User user, Set<Long> seats) {
 		double totalPrice = 0;
-		double basePrice = event.getBasePrice();
+		double basePrice;
+		double baseEventPrice = event.getBasePrice();
 		if (event.getRating() == EventRating.HIGH) {
-			basePrice = basePrice * hightEventRate;
+			baseEventPrice = baseEventPrice * hightEventRate;
 		}
 		int ticketsCount = 0;
 		for (Long id : seats) {
+			basePrice = baseEventPrice;
 			Event eventById = eventService.getById(event.getId());
 			Auditorium auditorium = eventById.getAuditoriums().get(dateTime);
 			boolean isSeatVip = auditoriumService.getByName(auditorium.getName()).isSeatVip(id);
@@ -50,7 +64,8 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public void bookTickets(Set<Ticket> tickets) {
 		for (Ticket ticket : tickets) {
-			Event event = ticket.getEvent();
+			Long eventId = ticket.getEvent().getId();
+			Event event = eventService.getById(eventId);
 			event.getAuditoriums().get(ticket.getDateTime()).addTicket(ticket);
 			User user = ticket.getUser();
 			Long userId = user.getId();
