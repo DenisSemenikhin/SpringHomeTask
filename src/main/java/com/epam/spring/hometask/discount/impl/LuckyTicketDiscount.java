@@ -1,43 +1,46 @@
 package com.epam.spring.hometask.discount.impl;
 
-import java.time.LocalDateTime;
-
+import com.epam.spring.hometask.domain.Discount;
 import com.epam.spring.hometask.domain.Event;
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.DiscountService;
 
+import java.time.LocalDateTime;
+
 public class LuckyTicketDiscount implements DiscountService {
 
-	private int luckyDiscount = 0;
-	private int nextLuckyTicketRate;
 
-	public int getLuckyDiscount() {
-		return luckyDiscount;
-	}
+    private Discount luckyTicketDiscount;
 
-	public void setLuckyDiscount(int luckyDiscount) {
-		this.luckyDiscount = luckyDiscount;
-	}
+    private int nextLuckyTicketRate;
 
-	public int getNextLuckyTicketRate() {
-		return nextLuckyTicketRate;
-	}
+    private int luckyTicketDiscountValue;
 
-	public void setNextLuckyTicketRate(int nextLuckyTicketRate) {
-		this.nextLuckyTicketRate = nextLuckyTicketRate;
-	}
+
+    public LuckyTicketDiscount(Discount luckyTicketDiscount, int nextLuckyTicketRate) {
+        this.luckyTicketDiscount = luckyTicketDiscount;
+        this.nextLuckyTicketRate = nextLuckyTicketRate;
+        this.luckyTicketDiscountValue = this.luckyTicketDiscount.getDiscountValue();
+    }
 
 	@Override
-	public int getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
+	public Discount getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
 		if (nextLuckyTicketRate != 0) {
 			if (user.isRegistrationStatus()) {
-				return numberOfTickets % nextLuckyTicketRate == 0 ? luckyDiscount : 0;
+			    if (numberOfTickets % nextLuckyTicketRate == 0){
+			        luckyTicketDiscount.setDiscountValue(luckyTicketDiscountValue);
+			        return luckyTicketDiscount;
+                }
 			} else {
 				long numberOfUserTickets = user.getTickets().size() + numberOfTickets;
-				return numberOfUserTickets % nextLuckyTicketRate == 0 ? luckyDiscount : 0;
+                if (numberOfUserTickets  % nextLuckyTicketRate == 0){
+                    luckyTicketDiscount.setDiscountValue(luckyTicketDiscountValue);
+                    return luckyTicketDiscount;
+                }
 			}
 		}
-		return 0;
+        luckyTicketDiscount.setDiscountValue(0);
+        return luckyTicketDiscount;
 	}
 
 }

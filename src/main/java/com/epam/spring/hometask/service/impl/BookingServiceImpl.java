@@ -1,24 +1,14 @@
 package com.epam.spring.hometask.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.NavigableMap;
-import java.util.Set;
-
-import javax.annotation.Resource;
-
+import com.epam.spring.hometask.domain.*;
+import com.epam.spring.hometask.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.epam.spring.hometask.domain.Auditorium;
-import com.epam.spring.hometask.domain.Event;
-import com.epam.spring.hometask.domain.EventRating;
-import com.epam.spring.hometask.domain.Ticket;
-import com.epam.spring.hometask.domain.User;
-import com.epam.spring.hometask.service.AuditoriumService;
-import com.epam.spring.hometask.service.BookingService;
-import com.epam.spring.hometask.service.DiscountService;
-import com.epam.spring.hometask.service.EventService;
-import com.epam.spring.hometask.service.UserService;
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.NavigableMap;
+import java.util.Set;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -54,8 +44,8 @@ public class BookingServiceImpl implements BookingService {
 			if (isSeatVip) {
 				basePrice *= vipSeatRate;
 			}
-			int discount = discountService.getDiscount(user, event, dateTime, ++ticketsCount);
-			basePrice = basePrice * (100 - discount) / 100;
+			Discount discount = discountService.getDiscount(user, event, dateTime, ++ticketsCount);
+			basePrice = basePrice * (100 - discount.getDiscountValue()) / 100;
 			totalPrice += basePrice;
 		}
 		return totalPrice;

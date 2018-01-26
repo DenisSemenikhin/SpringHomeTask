@@ -1,8 +1,10 @@
 package com.epam.spring.hometask;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
+import com.epam.spring.hometask.domain.Discount;
+import com.epam.spring.hometask.domain.Event;
+import com.epam.spring.hometask.domain.EventRating;
+import com.epam.spring.hometask.domain.User;
+import com.epam.spring.hometask.service.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,10 +14,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.epam.spring.hometask.domain.Event;
-import com.epam.spring.hometask.domain.EventRating;
-import com.epam.spring.hometask.domain.User;
-import com.epam.spring.hometask.service.DiscountService;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class DiscountServiceTest extends AbstractTestNGSpringContextTests {
@@ -69,7 +69,8 @@ public class DiscountServiceTest extends AbstractTestNGSpringContextTests {
 	public void getDiscountEachTenthTicket() {
 		LocalDateTime airDateTime = LocalDateTime
 				.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).minusDays(2);
-		double discountActual = discountService.getDiscount(user, event, airDateTime, 20);
+        Discount discount = discountService.getDiscount(user, event, airDateTime, 20);
+		double discountActual =discount.getDiscountValue();
 		Assert.assertEquals(discountActual, EXPECTED_HAPPY_DISCOUNT);
 	}
 
@@ -77,12 +78,13 @@ public class DiscountServiceTest extends AbstractTestNGSpringContextTests {
 	public void getDiscountBirthday() {
 		LocalDateTime airDateTimeEventOnTime = LocalDateTime.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday,
 				monthOfUserBirthday, 00, 00);
-		double discountActualWithinOneDay = discountService.getDiscount(user, event, airDateTimeEventOnTime, 9);
+        Discount discount = discountService.getDiscount(user, event, airDateTimeEventOnTime, 9);
+		double discountActualWithinOneDay = discount.getDiscountValue();
 		Assert.assertEquals(discountActualWithinOneDay, EXPECTED_BIRTHDAY_DISCOUNT);
-
 		LocalDateTime airDateTimeEventFiveDay = LocalDateTime
 				.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).plusDays(5);
-		double discountActualWithinFiveDay = discountService.getDiscount(user, event, airDateTimeEventFiveDay, 9);
+		discount = discountService.getDiscount(user, event, airDateTimeEventFiveDay, 9);
+		double discountActualWithinFiveDay = discount.getDiscountValue();
 		Assert.assertEquals(discountActualWithinFiveDay, EXPECTED_BIRTHDAY_DISCOUNT);
 	}
 
@@ -90,7 +92,10 @@ public class DiscountServiceTest extends AbstractTestNGSpringContextTests {
 	public void getDiscountMatchAlllRequirements() {
 		LocalDateTime airDateTimeEventFiveDay = LocalDateTime
 				.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).plusDays(2);
-		double discountActualWithinFiveDay = discountService.getDiscount(user, event, airDateTimeEventFiveDay, 10);
+
+        Discount discount = discountService.getDiscount(user, event, airDateTimeEventFiveDay, 10);
+		double discountActualWithinFiveDay = discount.getDiscountValue();
+
 		Assert.assertEquals(discountActualWithinFiveDay, EXPECTED_HAPPY_DISCOUNT);
 	}
 

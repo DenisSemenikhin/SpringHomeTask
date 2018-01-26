@@ -23,8 +23,10 @@ public class UserServiceImpl implements UserService {
 		this.userDaoService = userDaoService;
 	}
 
+
+
 	@Override
-	public User save(User user) {
+	public User save(User user){
 		return userDaoService.save(user);
 	}
 
