@@ -4,8 +4,8 @@ import com.epam.spring.hometask.service.DiscountService;
 
 public class DiscountStrategy {
 
-	public static DiscountService getDiscount(DiscountService discount) {
-		return discount;
+	public static DiscountService getDiscount(DiscountService discountService) {
+		return discountService;
 	}
 
 }

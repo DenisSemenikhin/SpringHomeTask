@@ -1,12 +1,12 @@
 package com.epam.spring.hometask.service;
 
-import java.time.LocalDateTime;
+import com.epam.spring.hometask.domain.Discount;
+import com.epam.spring.hometask.domain.Event;
+import com.epam.spring.hometask.domain.User;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.epam.spring.hometask.domain.Event;
-import com.epam.spring.hometask.domain.User;
+import java.time.LocalDateTime;
 
 /**
  * @author Yuriy_Tkach
@@ -25,8 +25,8 @@ public interface DiscountService {
 	 *            The date and time event will be aired
 	 * @param numberOfTickets
 	 *            Number of tickets that user buys
-	 * @return discount value from 0 to 100
+	 * @return discount obj
 	 */
-	int getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets);
+	Discount getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets);
 
 }

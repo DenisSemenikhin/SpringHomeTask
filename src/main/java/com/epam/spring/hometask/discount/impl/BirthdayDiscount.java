@@ -1,31 +1,40 @@
 package com.epam.spring.hometask.discount.impl;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
+import com.epam.spring.hometask.domain.Discount;
 import com.epam.spring.hometask.domain.Event;
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.DiscountService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 public class BirthdayDiscount implements DiscountService {
 
-	private byte birthdayDiscount = 0;
-
-	public byte getBirthdayDiscount() {
-		return birthdayDiscount;
+	public BirthdayDiscount() {
 	}
 
-	public void setBirthdayDiscount(byte birthdayDiscount) {
-		this.birthdayDiscount = birthdayDiscount;
-	}
+	private Discount birthdayDiscount;
+
+    public BirthdayDiscount(Discount birthdayDiscount) {
+        this.birthdayDiscount = birthdayDiscount;
+    }
+
+    public void setBirthdayDiscount(Discount birthdayDiscount) {
+        this.birthdayDiscount = birthdayDiscount;
+    }
 
 	@Override
-	public int getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
+	public Discount getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
 		LocalDate dateAirDate = airDateTime.toLocalDate().withYear(0);
 		LocalDate dateUserBirthday = user.getDateBirthday().withYear(0);
 		long difference = ChronoUnit.DAYS.between(dateAirDate, dateUserBirthday);
-		return (0 >= difference && difference <= 5) ? birthdayDiscount : 0;
+		if (0 >= difference && difference <= 5) {
+		    return birthdayDiscount;
+        } else {
+		    birthdayDiscount.setDiscountValue(0);
+		    return birthdayDiscount;
+        }
 	}
 
 }

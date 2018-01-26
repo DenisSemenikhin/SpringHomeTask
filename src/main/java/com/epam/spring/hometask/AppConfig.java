@@ -1,27 +1,21 @@
 package com.epam.spring.hometask;
 
+import com.epam.spring.hometask.discount.impl.BirthdayDiscount;
+import com.epam.spring.hometask.discount.impl.LuckyTicketDiscount;
+import com.epam.spring.hometask.domain.Auditorium;
+import com.epam.spring.hometask.service.DiscountService;
+import com.epam.spring.hometask.spring.config.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-
-import com.epam.spring.hometask.config.BirthDayDiscountConfig;
-import com.epam.spring.hometask.config.BookingConfig;
-import com.epam.spring.hometask.config.FirstAuditoriumConfig;
-import com.epam.spring.hometask.config.LuckyTicketDiscountConfig;
-import com.epam.spring.hometask.config.SecondAuditoriumConfig;
-import com.epam.spring.hometask.discount.impl.BirthdayDiscount;
-import com.epam.spring.hometask.discount.impl.LuckyTicketDiscount;
-import com.epam.spring.hometask.domain.Auditorium;
-import com.epam.spring.hometask.service.DiscountService;
-
 @Configuration
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 @ComponentScan("com.epam.spring.hometask")
 public class AppConfig {
 
@@ -64,16 +58,17 @@ public class AppConfig {
 	}
 
 	@Bean(name = "bunchOfDiscounts")
+	@Scope("prototype")
 	public List<DiscountService> bunchOfDiscounts() {
 		List<DiscountService> bunchOfDiscounts = new ArrayList<>();
 
-		BirthdayDiscount birthDayDiscount = new BirthdayDiscount();
-		birthDayDiscount.setBirthdayDiscount(birthDayDiscountConfig.getDiscount());
+		BirthdayDiscount birthDayDiscount = new BirthdayDiscount(birthDayDiscountConfig.getDiscount());
 		bunchOfDiscounts.add(birthDayDiscount);
 
-		LuckyTicketDiscount luckyTicketDiscount = new LuckyTicketDiscount();
-		luckyTicketDiscount.setLuckyDiscount(luckyTicketDiscountConfig.getDiscount());
-		luckyTicketDiscount.setNextLuckyTicketRate(luckyTicketDiscountConfig.getNextTicketRate());
+		LuckyTicketDiscount luckyTicketDiscount = new LuckyTicketDiscount(
+				luckyTicketDiscountConfig.getDiscount(),
+				luckyTicketDiscountConfig.getNextTicketRate());
+
 		bunchOfDiscounts.add(luckyTicketDiscount);
 		return bunchOfDiscounts;
 	}

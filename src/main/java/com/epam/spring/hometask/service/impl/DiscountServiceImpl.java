@@ -1,17 +1,16 @@
 package com.epam.spring.hometask.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.epam.spring.hometask.domain.Discount;
 import com.epam.spring.hometask.domain.Event;
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.DiscountService;
 import com.epam.spring.hometask.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class DiscountServiceImpl implements DiscountService {
@@ -39,11 +38,11 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 	@Override
-	public int getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
-		int maximumDiscount = 0;
+	public Discount getDiscount(User user, Event event, LocalDateTime airDateTime, long numberOfTickets) {
+		Discount maximumDiscount = new Discount(0,"Base Discount");
 		for (DiscountService discountService : discounts) {
-			int currentDiscount = discountService.getDiscount(user, event, airDateTime, numberOfTickets);
-			if (currentDiscount > maximumDiscount) {
+			Discount currentDiscount = discountService.getDiscount(user, event, airDateTime, numberOfTickets);
+			if (currentDiscount.getDiscountValue() > maximumDiscount.getDiscountValue()) {
 				maximumDiscount = currentDiscount;
 			}
 		}
