@@ -1,10 +1,6 @@
 package com.epam.spring.hometask.spring.config;
 
-import com.epam.spring.hometask.domain.Discount;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-
+/*
 @Configuration
 @PropertySource("classpath:/discount.properties")
 public class BirthDayDiscountConfig {
@@ -36,3 +32,4 @@ public class BirthDayDiscountConfig {
 
 
 }
+*/

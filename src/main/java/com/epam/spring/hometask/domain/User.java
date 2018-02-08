@@ -1,28 +1,36 @@
 package com.epam.spring.hometask.domain;
 
-import java.time.LocalDate;
-import java.util.NavigableSet;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.sql.Date;
 import java.util.Objects;
-import java.util.TreeSet;
 
-/**
- * @author Yuriy_Tkach
- */
+
+@Entity
+@Table(name = "USERS")
 public class User extends DomainObject {
 
-	private LocalDate dateBirthday;
+    @Column(name = "DATEBIRTHDAY")
+	private Date dateBirthday;
 
+    @Column(name = "FIRSTNAME")
 	private String firstName;
 
+    @Column(name = "LASTNAME")
 	private String lastName;
 
+    @Column(name = "EMAIL")
 	private String email;
 
-	private NavigableSet<Ticket> tickets = new TreeSet<>();
+    @Column(name = "REGISTRATIONSTATUS")
+    private boolean registrationStatus;
 
-	private boolean registrationStatus;
 
-	public boolean isRegistrationStatus() {
+    public User() {
+    }
+
+    public boolean isRegistrationStatus() {
 		return registrationStatus;
 	}
 
@@ -30,11 +38,11 @@ public class User extends DomainObject {
 		this.registrationStatus = registrationStatus;
 	}
 
-	public LocalDate getDateBirthday() {
+	public Date getDateBirthday() {
 		return dateBirthday;
 	}
 
-	public void setDateBirthday(LocalDate dateBirthday) {
+	public void setDateBirthday(Date dateBirthday) {
 		this.dateBirthday = dateBirthday;
 	}
 
@@ -60,14 +68,6 @@ public class User extends DomainObject {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public NavigableSet<Ticket> getTickets() {
-		return tickets;
-	}
-
-	public void setTickets(NavigableSet<Ticket> tickets) {
-		this.tickets = tickets;
 	}
 
 	@Override
@@ -111,4 +111,14 @@ public class User extends DomainObject {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"dateBirthday=" + dateBirthday +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", registrationStatus=" + registrationStatus +
+				'}';
+	}
 }

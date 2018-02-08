@@ -1,39 +1,45 @@
 package com.epam.spring.hometask.domain;
 
-import java.util.Collection;
-import java.util.Collections;
+
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.NavigableSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 
-/**
- * @author Yuriy_Tkach
- */
-public class Auditorium {
 
+@Entity
+@Table (name = "AUDITORIUMS")
+@AttributeOverride(name = "id", column = @Column(name = "AUDITORIUMID"))
+public class Auditorium extends DomainObject{
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "NAME")
 	private String name;
 
-	private long numberOfSeats;
+	@OneToMany
+	private Set<Ticket> tickets = new TreeSet<>();
 
-	private Set<Long> vipSeats = Collections.emptySet();
+	@OneToMany
+	private Set<Seat> seats = new HashSet<>();
+
+    @OneToMany
+    private Set<Event> events = new TreeSet<>();
 
 	public Auditorium() {
 	}
 
-	private NavigableSet<Ticket> tickets = new TreeSet<>();
+	@Override
+	public Long getId() {
+		return id;
+	}
 
-	/**
-	 * Counts how many vip seats are there in supplied <code>seats</code>
-	 * 
-	 * @param seats
-	 *            Seats to process
-	 * @return number of vip seats in request
-	 */
-	public long countVipSeats(Collection<Long> seats) {
-		return seats.stream().filter(seat -> vipSeats.contains(seat)).count();
+	@Override
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -44,67 +50,50 @@ public class Auditorium {
 		this.name = name;
 	}
 
-	public long getNumberOfSeats() {
-		return numberOfSeats;
-	}
-
-	public void setNumberOfSeats(long numberOfSeats) {
-		this.numberOfSeats = numberOfSeats;
-	}
-
-	public Set<Long> getAllSeats() {
-		return LongStream.range(1, numberOfSeats + 1).boxed().collect(Collectors.toSet());
-	}
-
-	public Set<Long> getVipSeats() {
-		return vipSeats;
-	}
-
-	public void setVipSeats(Set<Long> vipSeats) {
-		this.vipSeats = vipSeats;
-	}
-
-	public boolean isSeatVip(Long id) {
-		return vipSeats.contains(id);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(name);
-	}
-
-	public void addTicket(Ticket ticket) {
-		tickets.add(ticket);
-	}
-
-	public void remove(Ticket ticket) {
-		tickets.remove(ticket);
-	}
-
-	public NavigableSet<Ticket> getTickets() {
+	public Set<Ticket> getTickets() {
 		return tickets;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Auditorium other = (Auditorium) obj;
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		return true;
+	public void setTickets(NavigableSet<Ticket> tickets) {
+		this.tickets = tickets;
 	}
+
+    public Set<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(Set<Seat> seats) {
+        this.seats = seats;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Auditorium that = (Auditorium) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return tickets != null ? tickets.equals(that.tickets) : that.tickets == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (tickets != null ? tickets.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Auditorium{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", tickets=" + tickets +
+                '}';
+    }
+
 
 }

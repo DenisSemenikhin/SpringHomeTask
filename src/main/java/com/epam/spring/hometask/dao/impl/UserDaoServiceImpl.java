@@ -1,64 +1,34 @@
 package com.epam.spring.hometask.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.stereotype.Repository;
 
 import com.epam.spring.hometask.dao.UserDaoService;
 import com.epam.spring.hometask.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 
 @Repository
-public class UserDaoServiceImpl implements UserDaoService {
+public class UserDaoServiceImpl extends DaoRepositoryImpl<User,Long> implements UserDaoService{
 
-	private static Map<Long, User> users = new HashMap<Long, User>();
+    @PersistenceContext
+    private EntityManager em;
 
-	@Override
-	public User save(User user) {
-		return users.put(user.getId(), user);
-	}
+   UserDaoService userDaoService;
 
-	@Override
-	public boolean remove(User user) {
-		if (users.containsKey(user.getId())) {
-			users.remove(user.getId());
-			return true;
-		} else {
-			return false;
-		}
+   @Autowired
+   Class domainClass;
 
-	}
+   public UserDaoServiceImpl(Class domainClass, EntityManager entityManager) {
+        super(domainClass, entityManager);
+    }
 
-	@Override
-	public User getById(Long id) {
-		return users.get(id);
-	}
-
-	@Override
-	public Collection<User> getAll() {
-		return users.values();
-	}
-
-	@Override
+    @Override
 	public User getUserByEmail(String email) {
-		List<User> usersList = new ArrayList<User>(users.values());
-		for (User user : usersList) {
-			if (user.getEmail().equals(email)) {
-				return user;
-			}
-		}
-		return null;
+		return userDaoService.findAll().stream().filter(us -> us.getEmail().equals(email)).findAny().get();
 	}
 
-	public static Map<Long, User> getUsers() {
-		return users;
-	}
-
-	public static void setUsers(Map<Long, User> users) {
-		UserDaoServiceImpl.users = users;
-	}
 
 }

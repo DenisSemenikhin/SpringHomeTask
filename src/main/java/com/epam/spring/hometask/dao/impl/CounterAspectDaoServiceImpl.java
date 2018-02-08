@@ -1,12 +1,6 @@
 package com.epam.spring.hometask.dao.impl;
 
-import com.epam.spring.hometask.dao.CounterAspectDaoService;
-import com.epam.spring.hometask.domain.Event;
-import org.springframework.stereotype.Repository;
-
-import java.util.HashMap;
-import java.util.Map;
-
+/*
 @Repository
 public class CounterAspectDaoServiceImpl implements CounterAspectDaoService {
 
@@ -44,3 +38,4 @@ public class CounterAspectDaoServiceImpl implements CounterAspectDaoService {
         }
     }
 }
+*/

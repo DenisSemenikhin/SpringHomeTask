@@ -1,22 +1,6 @@
 package com.epam.spring.hometask;
 
-import com.epam.spring.hometask.domain.Discount;
-import com.epam.spring.hometask.domain.Event;
-import com.epam.spring.hometask.domain.EventRating;
-import com.epam.spring.hometask.domain.User;
-import com.epam.spring.hometask.service.DiscountService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
+/*
 @ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class DiscountServiceTest extends AbstractTestNGSpringContextTests {
 
@@ -99,4 +83,4 @@ public class DiscountServiceTest extends AbstractTestNGSpringContextTests {
 		Assert.assertEquals(discountActualWithinFiveDay, EXPECTED_HAPPY_DISCOUNT);
 	}
 
-}
+}*/

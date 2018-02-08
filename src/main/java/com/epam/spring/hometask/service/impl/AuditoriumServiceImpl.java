@@ -1,17 +1,7 @@
 package com.epam.spring.hometask.service.impl;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
-import com.epam.spring.hometask.domain.Auditorium;
-import com.epam.spring.hometask.service.AuditoriumService;
-
-@Service
+/*
+//@Service
 public class AuditoriumServiceImpl implements AuditoriumService {
 
 	@Resource(name = "bunchOfAuditoriums")
@@ -36,3 +26,4 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 	}
 
 }
+*/

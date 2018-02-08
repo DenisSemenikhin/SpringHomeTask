@@ -1,18 +1,9 @@
 package com.epam.spring.hometask.domain;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.junit.Test;
-
-import com.epam.spring.hometask.domain.Auditorium;
-
 /**
  * @author Yuriy_Tkach
  */
+/*
 public class TestAuditorium {
 	
 	@Test
@@ -31,3 +22,4 @@ public class TestAuditorium {
 	}
 
 }
+*/

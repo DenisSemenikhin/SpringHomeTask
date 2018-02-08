@@ -1,15 +1,9 @@
 package com.epam.spring.hometask.service;
 
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.epam.spring.hometask.domain.Auditorium;
-
 /**
  * @author Yuriy_Tkach
  */
+/*
 public interface AuditoriumService {
 
 	/**
@@ -17,7 +11,7 @@ public interface AuditoriumService {
 	 * 
 	 * @return set of all auditoriums
 	 */
-	public @Nonnull Set<Auditorium> getAll();
+//	public @Nonnull Set<Auditorium> getAll();
 
 	/**
 	 * Finding auditorium by name
@@ -26,6 +20,6 @@ public interface AuditoriumService {
 	 *            Name of the auditorium
 	 * @return found auditorium or <code>null</code>
 	 */
-	public @Nullable Auditorium getByName(@Nonnull String name);
+//	public @Nullable Auditorium getByName(@Nonnull String name);
 
-}
+

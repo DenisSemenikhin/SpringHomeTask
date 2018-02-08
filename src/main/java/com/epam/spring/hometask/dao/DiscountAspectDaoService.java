@@ -10,5 +10,4 @@ public interface DiscountAspectDaoService {
     void saveDiscountByUserGives(User user, Discount discount);
 
 
-
 }

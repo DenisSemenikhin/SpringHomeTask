@@ -1,53 +1,59 @@
 package com.epam.spring.hometask.service.impl;
 
-import java.util.Collection;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.epam.spring.hometask.dao.UserDaoService;
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.persistence.EntityManager;
+import java.util.Collection;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserDaoService userDaoService;
+    @Autowired
+    EntityManager entityManager;
 
-	public UserDaoService getUserDaoService() {
-		return userDaoService;
-	}
-
-	public void setUserDaoService(UserDaoService userDaoService) {
-		this.userDaoService = userDaoService;
-	}
+    @Autowired
+    private UserDaoService userDaoService;
 
 
 
-	@Override
-	public User save(User user){
-		return userDaoService.save(user);
-	}
+	@Transactional
+    @Nullable
+    @Override
+    public User getUserByEmail(@Nonnull String email) {
+        return userDaoService.getUserByEmail(email);
+    }
 
-	@Override
-	public boolean remove(User user) {
-		return userDaoService.remove(user);
-	}
+    @Transactional
+    @Override
+    public User save(@Nonnull User user) {
+        return userDaoService.save(user);
+    }
 
-	@Override
-	public User getById(Long id) {
-		return userDaoService.getById(id);
-	}
+    @Transactional
+    @Override
+    public boolean remove(@Nonnull User user) {
+	    userDaoService.delete(user);
+        return !userDaoService.existsById(user.getId());
+    }
 
-	@Override
-	public Collection<User> getAll() {
-		return userDaoService.getAll();
-	}
+    @Transactional
+    @Override
+    public User getById(@Nonnull Long id) {
+        return userDaoService.getOne(id);
+    }
 
-	@Override
-	public User getUserByEmail(String email) {
-		return userDaoService.getUserByEmail(email);
-	}
-
+    @Transactional
+    @Nonnull
+    @Override
+    public Collection<User> getAll() {
+        return userDaoService.findAll();
+    }
 }
