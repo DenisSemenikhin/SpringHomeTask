@@ -1,12 +1,6 @@
 package com.epam.spring.hometask.dao.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.epam.spring.hometask.dao.TicketsDaoService;
-import com.epam.spring.hometask.domain.Ticket;
-
+/*
 public class TicketDaoServiceImpl implements TicketsDaoService {
 
 	private static Map<Long, Ticket> tickets = new HashMap<Long, Ticket>();
@@ -41,3 +35,4 @@ public class TicketDaoServiceImpl implements TicketsDaoService {
 	}
 
 }
+*/

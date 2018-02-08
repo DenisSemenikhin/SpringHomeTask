@@ -1,12 +1,6 @@
 package com.epam.spring.hometask.discount.impl;
 
-import com.epam.spring.hometask.domain.Discount;
-import com.epam.spring.hometask.domain.Event;
-import com.epam.spring.hometask.domain.User;
-import com.epam.spring.hometask.service.DiscountService;
-
-import java.time.LocalDateTime;
-
+/*
 public class LuckyTicketDiscount implements DiscountService {
 
 
@@ -44,3 +38,4 @@ public class LuckyTicketDiscount implements DiscountService {
 	}
 
 }
+*/

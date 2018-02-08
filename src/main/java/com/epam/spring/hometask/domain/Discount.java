@@ -1,9 +1,21 @@
 package com.epam.spring.hometask.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "DISCOUNTS")
+@AttributeOverride(name = "id", column = @Column(name = "EVENTID"))
 public class Discount extends DomainObject {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "DISCOUNTID")
+    private Long id;
+
+    @Column(name = "VALUE")
     private int discountValue;
 
+    @Column(name = "NAME")
     private String discountName;
 
     public Discount() {
@@ -38,7 +50,11 @@ public class Discount extends DomainObject {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Discount{" +
+                "id=" + id +
+                ", discountValue=" + discountValue +
+                ", discountName='" + discountName + '\'' +
+                '}';
     }
 
     @Override
@@ -56,4 +72,5 @@ public class Discount extends DomainObject {
         return (this.discountValue == other.discountValue) &&
                 (this.discountName == other.discountName);
     }
+
 }

@@ -1,18 +1,7 @@
 package com.epam.spring.hometask.service.impl;
 
-import com.epam.spring.hometask.domain.Discount;
-import com.epam.spring.hometask.domain.Event;
-import com.epam.spring.hometask.domain.User;
-import com.epam.spring.hometask.service.DiscountService;
-import com.epam.spring.hometask.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.List;
-
-@Service
+/*
+//@Service
 public class DiscountServiceImpl implements DiscountService {
 
 	@Autowired
@@ -50,3 +39,4 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 }
+*/

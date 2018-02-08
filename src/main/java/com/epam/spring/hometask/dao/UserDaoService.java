@@ -1,18 +1,14 @@
 package com.epam.spring.hometask.dao;
 
-import java.util.Collection;
 
 import com.epam.spring.hometask.domain.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 
-public interface UserDaoService {
-
-	public User save(User object);
-
-	public boolean remove(User object);
-
-	public User getById(Long id);
-
-	public Collection<User> getAll();
+@Repository
+public interface UserDaoService extends JpaRepository<User,Long>, JpaSpecificationExecutor<User>,
+		DaoRepository<User,Long> {
 
 	public User getUserByEmail(String email);
 

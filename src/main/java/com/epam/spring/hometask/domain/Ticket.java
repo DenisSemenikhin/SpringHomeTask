@@ -1,22 +1,32 @@
 package com.epam.spring.hometask.domain;
 
-import java.time.LocalDateTime;
+
+import javax.persistence.*;
+import java.sql.Date;
 import java.util.Objects;
 
-/**
- * @author Yuriy_Tkach
- */
+
+@Entity
+@Table(name = "TICKETS")
+@AttributeOverride(name = "id", column = @Column(name = "TICKETID"))
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private Event event;
 
-    private LocalDateTime dateTime;
+    @Column(name = "DATETIME")
+    private Date dateTime;
 
-    private long seat;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Seat seat;
 
-    public Ticket(User user, Event event, LocalDateTime dateTime, long seat) {
+    public Ticket() {
+    }
+
+    public Ticket(User user, Event event, Date dateTime, Seat seat) {
         this.user = user;
         this.event = event;
         this.dateTime = dateTime;
@@ -31,11 +41,11 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
         return event;
     }
 
-    public LocalDateTime getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public long getSeat() {
+    public Seat getSeat() {
         return seat;
     }
 
@@ -87,9 +97,29 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
             result = event.getName().compareTo(other.getEvent().getName());
         }
         if (result == 0) {
-            result = Long.compare(seat, other.getSeat());
+            result = this.getSeat().getNumber().compareTo(other.getSeat().getNumber());
         }
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "user=" + user +
+                ", event=" + event +
+                ", dateTime=" + dateTime +
+                ", seat=" + seat +
+                '}';
+    }
+
+    @ManyToOne(optional = false)
+    private User users;
+
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
+    }
 }

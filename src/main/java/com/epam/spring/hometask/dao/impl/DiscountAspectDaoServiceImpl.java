@@ -1,14 +1,6 @@
 package com.epam.spring.hometask.dao.impl;
 
-import com.epam.spring.hometask.dao.DiscountAspectDaoService;
-import com.epam.spring.hometask.domain.Discount;
-import com.epam.spring.hometask.domain.User;
-import org.springframework.stereotype.Repository;
-
-import java.util.HashMap;
-import java.util.Map;
-
-
+/*
 @Repository
 public class DiscountAspectDaoServiceImpl implements DiscountAspectDaoService{
 
@@ -45,3 +37,4 @@ public class DiscountAspectDaoServiceImpl implements DiscountAspectDaoService{
         }
     }
 }
+*/

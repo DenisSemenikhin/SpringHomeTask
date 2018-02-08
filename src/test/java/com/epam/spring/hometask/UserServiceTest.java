@@ -1,15 +1,15 @@
 package com.epam.spring.hometask;
 
+
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.UserService;
+import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 
 @ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class UserServiceTest extends AbstractTestNGSpringContextTests {

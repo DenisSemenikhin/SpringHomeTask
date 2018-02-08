@@ -1,22 +1,9 @@
 package com.epam.spring.hometask.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import com.epam.spring.hometask.domain.Auditorium;
-import com.epam.spring.hometask.domain.Event;
-import com.epam.spring.hometask.domain.EventRating;
-
 /**
  * @author Yuriy_Tkach
  */
+/*
 public class TestEvent {
 
 	private Event event;
@@ -116,3 +103,4 @@ public class TestEvent {
 	}
 
 }
+*/

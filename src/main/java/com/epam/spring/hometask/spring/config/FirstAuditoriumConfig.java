@@ -1,11 +1,6 @@
 package com.epam.spring.hometask.spring.config;
 
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-
+/*
 @Configuration
 @PropertySource("classpath:/auditorium.properties")
 public class FirstAuditoriumConfig {
@@ -42,3 +37,4 @@ public class FirstAuditoriumConfig {
 	}
 
 }
+*/

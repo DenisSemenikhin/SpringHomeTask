@@ -1,16 +1,7 @@
 package com.epam.spring.hometask.service.impl;
 
-import com.epam.spring.hometask.domain.*;
-import com.epam.spring.hometask.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.NavigableMap;
-import java.util.Set;
-
-@Service
+/*
+//@Service
 public class BookingServiceImpl implements BookingService {
 
 	@Resource(name = "hightEventRate")
@@ -123,4 +114,5 @@ public class BookingServiceImpl implements BookingService {
 		this.userService = userService;
 	}
 
-}
+
+*/

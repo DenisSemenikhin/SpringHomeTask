@@ -1,23 +1,6 @@
 package com.epam.spring.hometask;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
-import com.epam.spring.hometask.domain.Auditorium;
-import com.epam.spring.hometask.domain.Event;
-import com.epam.spring.hometask.domain.EventRating;
-import com.epam.spring.hometask.service.AuditoriumService;
-import com.epam.spring.hometask.service.EventService;
-
+/*
 @ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class EventServiceTest extends AbstractTestNGSpringContextTests {
 
@@ -77,4 +60,4 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
 
 	}
 
-}
+*/

@@ -1,20 +1,6 @@
 package com.epam.spring.hometask.spring.aspect;
 
-import com.epam.spring.hometask.dao.CounterAspectDaoService;
-import com.epam.spring.hometask.domain.Event;
-import com.epam.spring.hometask.domain.Ticket;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
+/*
 @Aspect
 @Component
 public class CounterAspect {
@@ -67,3 +53,4 @@ public class CounterAspect {
 
 
 }
+*/

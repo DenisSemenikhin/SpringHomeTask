@@ -1,42 +1,43 @@
 package com.epam.spring.hometask;
 
-import com.epam.spring.hometask.discount.impl.BirthdayDiscount;
-import com.epam.spring.hometask.discount.impl.LuckyTicketDiscount;
-import com.epam.spring.hometask.domain.Auditorium;
-import com.epam.spring.hometask.service.DiscountService;
-import com.epam.spring.hometask.spring.config.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.persistence.EntityManager;
 
-@Configuration
-@EnableAspectJAutoProxy(proxyTargetClass = true)
-@ComponentScan("com.epam.spring.hometask")
+@SpringBootApplication
 public class AppConfig {
 
-	@Autowired
+    @Autowired
+    EntityManager entityManager;
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholder() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+
+
+/*
+	//@Autowired
 	private FirstAuditoriumConfig firstAuditoriumConfig;
-	@Autowired
+	//@Autowired
 	private SecondAuditoriumConfig secondAuditoriumConfig;
 
-	@Autowired
+	//@Autowired
 	private BirthDayDiscountConfig birthDayDiscountConfig;
-	@Autowired
+	//@Autowired
 	private LuckyTicketDiscountConfig luckyTicketDiscountConfig;
 
-	@Autowired
+	//@Autowired
 	private BookingConfig bookingConfig;
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholder() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
 
+*/
+/*
 	@Bean(name = "bunchOfAuditoriums")
 	public Map<String, Auditorium> bunchOfAuditoriums() {
 		Map<String, Auditorium> bunchOfAuditoriums = new HashMap<>();
@@ -56,7 +57,8 @@ public class AppConfig {
 
 		return bunchOfAuditoriums;
 	}
-
+*/
+/*
 	@Bean(name = "bunchOfDiscounts")
 	@Scope("prototype")
 	public List<DiscountService> bunchOfDiscounts() {
@@ -82,5 +84,5 @@ public class AppConfig {
 	public double vipSeatRate() {
 		return bookingConfig.getVipSeatRate();
 	}
-
+*/
 }
