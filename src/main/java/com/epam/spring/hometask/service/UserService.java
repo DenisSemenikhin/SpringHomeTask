@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 /**
  * @author Yuriy_Tkach
  */
+
 public interface UserService extends AbstractDomainObjectService<User> {
 
     /**

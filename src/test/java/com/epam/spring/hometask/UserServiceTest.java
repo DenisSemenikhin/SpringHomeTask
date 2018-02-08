@@ -5,12 +5,14 @@ import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.UserService;
 import org.junit.BeforeClass;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@SpringBootApplication
 @ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
@@ -26,7 +28,6 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 	@BeforeClass
 	public void initTest() {
 		user = new User();
-		user.setId(ID);
 		user.setFirstName(FIRST_NAME);
 		user.setLastName(LAST_NAME);
 		user.setEmail(EMAIL);

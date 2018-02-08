@@ -6,7 +6,6 @@ import javax.persistence.Table;
 import java.sql.Date;
 import java.util.Objects;
 
-
 @Entity
 @Table(name = "USERS")
 public class User extends DomainObject {

@@ -1,6 +1,8 @@
 package com.epam.spring.hometask;
 
 
+import com.epam.spring.hometask.domain.User;
+import jdk.nashorn.internal.objects.annotations.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +21,8 @@ public class AppConfig {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-
-
+    @Property
+    Class<User> userClass;
 /*
 	//@Autowired
 	private FirstAuditoriumConfig firstAuditoriumConfig;
