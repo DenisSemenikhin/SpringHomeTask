@@ -99,7 +99,8 @@ public class Event extends DomainObject{
     @Override
     public String toString() {
         return "Event{" +
-                "name='" + name + '\'' +
+				"id= " + super.getId() +
+                " name='" + name + '\'' +
                 ", auditorium=" + auditorium +
                 ", basePrice=" + basePrice +
                 ", rating=" + rating +

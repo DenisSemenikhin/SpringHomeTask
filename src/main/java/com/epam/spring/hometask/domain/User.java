@@ -113,6 +113,7 @@ public class User extends DomainObject {
 	@Override
 	public String toString() {
 		return "User{" +
+				"id= " + super.getId() +
 				"dateBirthday=" + dateBirthday +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +

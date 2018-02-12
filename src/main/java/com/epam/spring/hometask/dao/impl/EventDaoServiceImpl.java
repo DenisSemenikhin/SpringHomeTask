@@ -1,199 +1,64 @@
 package com.epam.spring.hometask.dao.impl;
 
-/*
+import com.epam.spring.hometask.dao.EventDaoService;
+import com.epam.spring.hometask.dao.repository.DaoEventRepository;
+import com.epam.spring.hometask.domain.Event;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Repository
+@EnableJpaRepositories("com.epam.spring.hometask")
 public class EventDaoServiceImpl implements EventDaoService {
 
-	private NavigableSet<LocalDateTime> airDates = new TreeSet<>();
-
-	private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<>();
-
-	private static Map<Long, Event> events = new HashMap<Long, Event>();
+	@Autowired
+	@Qualifier("DaoEventRepository")
+	DaoEventRepository<Event, Long> daoEventRepository;
 
 	@Override
 	public Event save(Event event) {
-		return events.put(event.getId(), event);
+		return daoEventRepository.save(event);
 	}
 
 	@Override
 	public boolean remove(Event event) {
-		return events.remove(event.getId(), event);
+		daoEventRepository.delete(event);
+		return !daoEventRepository.existsById(event.getId());
 	}
 
 	@Override
 	public Event getById(Long id) {
-		return events.get(id);
+		return daoEventRepository.findAll()
+                .stream().filter(ev -> ev.getId().equals(id)).findFirst().get();
 	}
 
 	@Override
 	public Collection<Event> getAll() {
-		return events.values();
-	}
-
-	@Override
-	public Event getByName(String eventName) {
-		List<Event> eventList = new ArrayList<Event>(events.values());
-		for (Event event : eventList) {
-			if (event.getName().equals(eventName)) {
-				return event;
-			}
-		}
-		return null;
+		return daoEventRepository.findAll();
 	}
 
 	@Override
 	public Set<Event> getForDateRange(LocalDate dateFrom, LocalDate dateTo) {
-		List<Event> eventList = new ArrayList<Event>(events.values());
-		@SuppressWarnings("unchecked")
-		Set<Event> resultEventsList = new HashSet<Event>();
-		for (Event event : eventList) {
-			if (event.airsOnDates(dateFrom, dateTo)) {
-				resultEventsList.add(event);
-			}
-		}
-		return resultEventsList.isEmpty() ? null : resultEventsList;
-	}
+        return daoEventRepository.findAll().stream()
+                .filter(ev -> ev.getDate().after(Date.valueOf(dateFrom)))
+                .filter(ev -> ev.getDate().before(Date.valueOf(dateTo)))
+                .collect(Collectors.toSet());
+    }
 
-	@Override
-	public Set<Event> getNextEvents(LocalDateTime dateTo) {
-		List<Event> eventList = new ArrayList<Event>(events.values());
-		@SuppressWarnings("unchecked")
-		Set<Event> resultEventsList = new HashSet<Event>();
-		for (Event event : eventList) {
-			if (event.airsOnDates(LocalDateTime.now(), dateTo)) {
-				resultEventsList.add(event);
-			}
-		}
-		return resultEventsList.isEmpty() ? null : resultEventsList;
-	}
+     @Override
+     public Set<Event> getNextEvents (LocalDateTime dateTo){
+         return daoEventRepository.findAll().stream()
+                .sorted((ev1, ev2) -> ev1.getDate().compareTo(ev2.getDate()))
+                .filter(ev -> ev.getDate().after(Date.valueOf(dateTo.toLocalDate())))
+                .collect(Collectors.toSet());
 
-    /**
-     * Checks if event is aired on particular <code>dateTime</code> and assigns
-     * auditorium to it.
-     *
-     * @param dateTime
-     *            Date and time of aired event for which to assign
-     * @param auditorium
-     *            Auditorium that should be assigned
-     * @return <code>true</code> if successful, <code>false</code> if event is not
-     *         aired on that date
-     */
-/*
-    public boolean assignAuditorium(LocalDateTime dateTime, Auditorium auditorium) {
-        if (airDates.contains(dateTime)) {
-            auditoriums.put(dateTime, auditorium);
-            return true;
-        } else {
-            return false;
-        }
-    }
-*/
-    /**
-     * Removes auditorium assignment from event
-     *
-     * @param dateTime
-     *            Date and time to remove auditorium for
-     * @return <code>true</code> if successful, <code>false</code> if not removed
-     */
-    /*
-    public boolean removeAuditoriumAssignment(LocalDateTime dateTime) {
-        return auditoriums.remove(dateTime) != null;
-    }
-*/
-    /**
-     * Add date and time of event air
-     *
-     * @param dateTime
-     *            Date and time to add
-     * @return <code>true</code> if successful, <code>false</code> if already there
-     */
-    /*
-    public boolean addAirDateTime(LocalDateTime dateTime) {
-        return airDates.add(dateTime);
-    }
-    */
-
-    /**
-     * Adding date and time of event air and assigning auditorium to that
-     *
-     * @param dateTime
-     *            Date and time to add
-     * @param auditorium
-     *            Auditorium to add if success in date time add
-     * @return <code>true</code> if successful, <code>false</code> if already there
-     */
-    /*
-    public boolean addAirDateTime(LocalDateTime dateTime, Auditorium auditorium) {
-        boolean result = airDates.add(dateTime);
-        if (result) {
-            auditoriums.put(dateTime, auditorium);
-        }
-        return result;
-    }
-    */
-
-    /**
-     * Removes the date and time of event air. If auditorium was assigned to that
-     * date and time - the assignment is also removed
-     *
-     * @param dateTime
-     *            Date and time to remove
-     * @return <code>true</code> if successful, <code>false</code> if not there
-     */
-    /*
-    public boolean removeAirDateTime(LocalDateTime dateTime) {
-        boolean result = airDates.remove(dateTime);
-        if (result) {
-            auditoriums.remove(dateTime);
-        }
-        return result;
-    }
-    */
-
-    /**
-     * Checks if event airs on particular date and time
-     *
-     * @param dateTime
-     *            Date and time to check
-     * @return <code>true</code> event airs on that date and time
-     */
-    /*
-    public boolean airsOnDateTime(LocalDateTime dateTime) {
-        return airDates.stream().anyMatch(dt -> dt.equals(dateTime));
-    }
-    */
-
-    /**
-     * Checks if event airs on particular date
-     *
-     * @param date
-     *            Date to check
-     * @return <code>true</code> event airs on that date
-     */
-    /*
-    public boolean airsOnDate(LocalDate date) {
-        return airDates.stream().anyMatch(dt -> dt.toLocalDate().equals(date));
-    }
-    */
-
-    /**
-     * Checking if event airs on dates between <code>from</code> and <code>to</code>
-     * inclusive
-     *
-     * @param from
-     *            Start date to check
-     * @param to
-     *            End date to check
-     * @return <code>true</code> event airs on dates
-     */
-    /*
-    public boolean airsOnDates(LocalDate from, LocalDate to) {
-        return airDates.stream().anyMatch(dt -> dt.toLocalDate().compareTo(from) >= 0 && dt.toLocalDate().compareTo(to) <= 0);
-    }
-    */
-/*
-    public boolean airsOnDates(LocalDateTime from, LocalDateTime to) {
-        return airDates.stream().anyMatch(dt -> dt.compareTo(from) >= 0 && dt.compareTo(to) <= 0);
-    }
-*/
-
+     }
+}

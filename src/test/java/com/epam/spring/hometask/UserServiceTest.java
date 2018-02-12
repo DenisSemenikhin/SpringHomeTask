@@ -1,46 +1,58 @@
 package com.epam.spring.hometask;
 
-
 import com.epam.spring.hometask.domain.User;
 import com.epam.spring.hometask.service.UserService;
-import org.junit.BeforeClass;
+import com.epam.spring.hometask.spring.config.AppTestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@SpringBootApplication
-@ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
-public class UserServiceTest extends AbstractTestNGSpringContextTests {
+@ContextConfiguration(classes = { AppTestConfig.class }, loader = AnnotationConfigContextLoader.class)
+public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
-	private static final Long ID = 1l;
 	private static final String FIRST_NAME = "Den";
 	private static final String LAST_NAME = "Semenikhin";
 	private static final String EMAIL = "fromrussia@withlove.com";
 
 	@Autowired
-	private UserService userService;
+	UserService userService;
 	private User user;
 
-	@BeforeClass
+	@BeforeMethod
 	public void initTest() {
 		user = new User();
 		user.setFirstName(FIRST_NAME);
 		user.setLastName(LAST_NAME);
 		user.setEmail(EMAIL);
+
 	}
 
-	@Test(groups = TestConstants.GROUP_USER_TEST, description = "Testing User save() and getById(), remove()")
+	@Transactional
+	@Rollback(true)
+	@Test(groups = TestConstants.GROUP_USER_TEST, description = "Testing User save() and getByEmail(), remove()")
 	public void userServiceSaveTest() {
 		userService.save(user);
-
 		Assert.assertTrue(userService.getAll().size() == 1);
-		Assert.assertEquals(user, userService.getById(ID));
-		userService.remove(user);
+		Assert.assertEquals(user, userService.getUserByEmail(EMAIL));
+		Assert.assertEquals(true,userService.remove(user));
 		Assert.assertTrue(userService.getAll().size() == 0);
 	}
+
+	@Transactional
+	@Rollback(true)
+	@Test(groups = TestConstants.GROUP_USER_TEST, description = "Testing User save() and getByEmail(), remove()")
+	public void userServiceGetByIdTest() {
+		userService.save(user);
+		User expectedUser = userService.getAll().stream().findAny().get();
+		Long Id = expectedUser.getId();
+		Assert.assertTrue(expectedUser.equals(userService.getById(Id)));
+	}
+
 
 }

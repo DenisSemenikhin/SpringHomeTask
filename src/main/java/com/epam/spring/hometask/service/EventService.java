@@ -1,32 +1,26 @@
 package com.epam.spring.hometask.service;
 
-/*
+
 import com.epam.spring.hometask.domain.Event;
 
-/**
- * @author Yuriy_Tkach
- */
-/*public interface EventService extends AbstractDomainObjectService<Event> {
+import javax.annotation.Nonnull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Set;
 
-	/**
-	 * Finding event by name
-	 * 
-	 * @param name
-	 *            Name of the event
-	 * @return found event or <code>null</code>
-	 */
-/*	public @Nullable Event getByName(@Nonnull String name);
 
-	/*
+public interface EventService extends AbstractDomainObjectService<Event> {
+
+      /*
 	 * Finding all events that air on specified date range
-	 * 
+	 *
 	 * @param from Start date
-	 * 
+	 *
 	 * @param to End date inclusive
-	 * 
+	 *
 	 * @return Set of events
 	 */
-/*	public @Nonnull Set<Event> getForDateRange(@Nonnull LocalDate from, @Nonnull LocalDate to);
+    public @Nonnull Set<Event> getForDateRange(@Nonnull LocalDate from, @Nonnull LocalDate to);
 
 	/*
 	 * Return events from 'now' till the the specified date time
@@ -35,7 +29,6 @@ import com.epam.spring.hometask.domain.Event;
 	 * 
 	 * @return Set of events
 	 */
-/*	public @Nonnull Set<Event> getNextEvents(@Nonnull LocalDateTime to);
+    public @Nonnull Set<Event> getNextEvents(@Nonnull LocalDateTime to);
 
 }
-*/

@@ -105,6 +105,7 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
     @Override
     public String toString() {
         return "Ticket{" +
+                "id= " + super.getId() +
                 "user=" + user +
                 ", event=" + event +
                 ", dateTime=" + dateTime +

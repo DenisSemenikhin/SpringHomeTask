@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="3723" started-at="2018-02-12T15:13:25Z" finished-at="2018-02-12T15:13:29Z">
+    <groups>
+      <group name="teste_user_group">
+        <method signature="UserServiceTest.userServiceSaveTest()[pri:0, instance:com.epam.spring.hometask.UserServiceTest@75c072cb]" name="userServiceSaveTest" class="com.epam.spring.hometask.UserServiceTest"/>
+      </group> <!-- teste_user_group -->
+    </groups>
+    <test name="Default test" duration-ms="3723" started-at="2018-02-12T15:13:25Z" finished-at="2018-02-12T15:13:29Z">
+      <class name="com.epam.spring.hometask.UserServiceTest">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.epam.spring.hometask.UserServiceTest@75c072cb]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3466" started-at="2018-02-12T18:13:25Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2018-02-12T18:13:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.epam.spring.hometask.UserServiceTest@75c072cb]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2018-02-12T18:13:25Z" finished-at="2018-02-12T18:13:25Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.epam.spring.hometask.UserServiceTest@75c072cb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="26" started-at="2018-02-12T18:13:29Z" finished-at="2018-02-12T18:13:29Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.epam.spring.hometask.UserServiceTest.userServiceSaveTest()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="userServiceSaveTest()[pri:0, instance:com.epam.spring.hometask.UserServiceTest@75c072cb]" name="userServiceSaveTest" duration-ms="197" started-at="2018-02-12T18:13:29Z" description="Testing User save() and getByEmail(), remove()" finished-at="2018-02-12T18:13:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- userServiceSaveTest -->
+        <test-method status="PASS" signature="initTest()[pri:0, instance:com.epam.spring.hometask.UserServiceTest@75c072cb]" name="initTest" is-config="true" duration-ms="0" started-at="2018-02-12T18:13:29Z" finished-at="2018-02-12T18:13:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.epam.spring.hometask.UserServiceTest@75c072cb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="6" started-at="2018-02-12T18:13:29Z" finished-at="2018-02-12T18:13:29Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.epam.spring.hometask.UserServiceTest.userServiceSaveTest()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.epam.spring.hometask.UserServiceTest@75c072cb]" name="springTestContextAfterTestClass" is-config="true" duration-ms="1" started-at="2018-02-12T18:13:29Z" finished-at="2018-02-12T18:13:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- com.epam.spring.hometask.UserServiceTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

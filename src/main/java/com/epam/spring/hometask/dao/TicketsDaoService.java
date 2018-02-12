@@ -1,18 +1,12 @@
 package com.epam.spring.hometask.dao;
 
+import com.epam.spring.hometask.domain.Ticket;
+import org.springframework.data.repository.NoRepositoryBean;
+
 import java.util.Collection;
 
-import com.epam.spring.hometask.domain.Ticket;
-
-public interface TicketsDaoService {
-
-	public Ticket save(Ticket ticket);
-
-	public boolean remove(Ticket ticket);
-
-	public Ticket getById(Long ticketId);
-
-	public Collection<Ticket> getAll();
+@NoRepositoryBean
+public interface TicketsDaoService extends AbstractDomainObjectDaoService<Ticket>{
 
 	public void saveAll(Collection<Ticket> tickets);
 

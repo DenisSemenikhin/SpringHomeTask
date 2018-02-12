@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-public class PersistanceJPAConfig {
+public class PersistanceJPATestConfig {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {

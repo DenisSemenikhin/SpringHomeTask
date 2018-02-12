@@ -1,54 +1,53 @@
 package com.epam.spring.hometask.service.impl;
 
-/*
-//@Service
+
+import com.epam.spring.hometask.dao.EventDaoService;
+import com.epam.spring.hometask.domain.Event;
+import com.epam.spring.hometask.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Nonnull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
+
+@Service
 public class EventServiceImpl implements EventService {
 
-	//@Autowired
+	@Autowired
 	private EventDaoService eventDaoService;
 
-	public EventDaoService getEventDaoService() {
-		return eventDaoService;
-	}
+    @Override
+    public Event save(Event event) {
+        return eventDaoService.save(event);
+    }
 
-	public void setEventDaoService(EventDaoService eventDaoService) {
-		this.eventDaoService = eventDaoService;
-	}
+    @Override
+    public boolean remove(Event event) {
+        return eventDaoService.remove(event);
+    }
 
-	@Override
-	public Event save(Event event) {
-		return eventDaoService.save(event);
-	}
+    @Override
+    public Event getById(Long eventId) {
+        return eventDaoService.getById(eventId);
+    }
 
-	@Override
-	public boolean remove(Event event) {
-		return eventDaoService.remove(event);
-	}
+    @Override
+    public Collection<Event> getAll() {
+        return eventDaoService.getAll();
+    }
 
-	@Override
-	public Event getById(Long eventId) {
-		return eventDaoService.getById(eventId);
-	}
+    @Nonnull
+    @Override
+    public Set<Event> getForDateRange(@Nonnull LocalDate from, @Nonnull LocalDate to) {
+        return eventDaoService.getForDateRange(from,to);
+    }
 
-	@Override
-	public Collection<Event> getAll() {
-		return eventDaoService.getAll();
-	}
-
-	@Override
-	public Event getByName(String eventName) {
-		return eventDaoService.getByName(eventName);
-	}
-
-	@Override
-	public Set<Event> getForDateRange(LocalDate dateFrom, LocalDate dateTo) {
-		return (Set<Event>) eventDaoService.getForDateRange(dateFrom, dateTo);
-	}
-
-	@Override
-	public Set<Event> getNextEvents(LocalDateTime dateTo) {
-		return eventDaoService.getNextEvents(dateTo);
-	}
-
+    @Nonnull
+    @Override
+    public Set<Event> getNextEvents(@Nonnull LocalDateTime to) {
+        return eventDaoService.getNextEvents(to);
+    }
 }
-*/

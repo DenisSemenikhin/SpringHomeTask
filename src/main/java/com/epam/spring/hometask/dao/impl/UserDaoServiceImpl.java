@@ -10,8 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nonnull;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Collection;
 
 
@@ -19,16 +17,14 @@ import java.util.Collection;
 @EnableJpaRepositories("com.epam.spring.hometask")
 public class UserDaoServiceImpl implements UserDaoService{
 
-    @PersistenceContext
-    EntityManager entityManager;
-
     @Autowired
     @Qualifier("DaoUserRepository")
     private DaoUserRepository<User,Long> daoUserRepository;
 
     @Override
 	public User getUserByEmail(String email) {
-		return daoUserRepository.findAll().stream().filter(us -> us.getEmail().equals(email)).findAny().get();
+		return daoUserRepository.findAll()
+                .stream().filter(us -> us.getEmail().equals(email)).findAny().get();
 	}
 
     @Override
@@ -39,12 +35,13 @@ public class UserDaoServiceImpl implements UserDaoService{
     @Override
     public boolean remove(@Nonnull User user) {
         daoUserRepository.delete(user);
-        return daoUserRepository.existsById(user.getId());
+        return !daoUserRepository.existsById(user.getId());
     }
 
     @Override
     public User getById(@Nonnull Long id) {
-        return daoUserRepository.getOne(id);
+        return daoUserRepository.findAll()
+                .stream().filter(us -> us.getId().equals(id)).findFirst().get();
     }
 
     @Override
