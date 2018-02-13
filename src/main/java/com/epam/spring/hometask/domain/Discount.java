@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "DISCOUNTS")
-@AttributeOverride(name = "id", column = @Column(name = "EVENTID"))
+@AttributeOverride(name = "id", column = @Column(name = "DISCOUNTID"))
 public class Discount extends DomainObject {
 
 	@Column(name = "VALUE")

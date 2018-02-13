@@ -6,10 +6,14 @@ import com.epam.spring.hometask.dao.repository.DaoAuditoriumRepository;
 import com.epam.spring.hometask.domain.Auditorium;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 
+@Repository
+@EnableJpaRepositories("com.epam.spring.hometask")
 public class AuditoriumDaoServiceImpl implements AuditoriumDaoService {
 
     @Autowired

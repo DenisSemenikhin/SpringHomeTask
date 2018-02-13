@@ -35,7 +35,7 @@ public class PersistanceJPATestConfig {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.h2.Driver");
-		dataSource.setUrl("jdbc:h2:~/mem");
+		dataSource.setUrl("jdbc:h2:~/test");
 		dataSource.setUsername("sa");
 		return dataSource;
 	}

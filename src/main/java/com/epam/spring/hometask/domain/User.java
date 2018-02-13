@@ -1,35 +1,42 @@
 package com.epam.spring.hometask.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.sql.Date;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "USERS")
 public class User extends DomainObject {
 
-    @Column(name = "DATEBIRTHDAY")
+	@Column(name = "DATEBIRTHDAY")
 	private Date dateBirthday;
 
-    @Column(name = "FIRSTNAME")
+	@Column(name = "FIRSTNAME")
 	private String firstName;
 
-    @Column(name = "LASTNAME")
+	@Column(name = "LASTNAME")
 	private String lastName;
 
-    @Column(name = "EMAIL")
+	@Column(name = "EMAIL")
 	private String email;
 
-    @Column(name = "REGISTRATIONSTATUS")
-    private boolean registrationStatus;
+	@Column(name = "REGISTRATIONSTATUS")
+	private boolean registrationStatus;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+	private Set<Ticket> tickets = new TreeSet<>();
 
-    public User() {
-    }
+	public User() {
+	}
 
-    public boolean isRegistrationStatus() {
+	public boolean isRegistrationStatus() {
 		return registrationStatus;
 	}
 
@@ -67,6 +74,14 @@ public class User extends DomainObject {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(Set<Ticket> tickets) {
+		this.tickets = tickets;
 	}
 
 	@Override
@@ -112,13 +127,8 @@ public class User extends DomainObject {
 
 	@Override
 	public String toString() {
-		return "User{" +
-				"id= " + super.getId() +
-				"dateBirthday=" + dateBirthday +
-				", firstName='" + firstName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", email='" + email + '\'' +
-				", registrationStatus=" + registrationStatus +
-				'}';
+		return "User{" + "id= " + super.getId() + "dateBirthday=" + dateBirthday + ", firstName='" + firstName + '\''
+				+ ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", registrationStatus="
+				+ registrationStatus + '}';
 	}
 }

@@ -1,30 +1,37 @@
 package com.epam.spring.hometask.domain;
 
-import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "EVENTS")
 @AttributeOverride(name = "id", column = @Column(name = "EVENTID"))
-public class Event extends DomainObject{
+public class Event extends DomainObject {
 
-    @Column(name = "NAME")
+	@Column(name = "NAME")
 	private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Auditorium auditorium;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Auditorium auditorium;
 
-    @Column(name = "BASEPRICE")
-    private double basePrice;
+	@Column(name = "BASEPRICE")
+	private double basePrice;
 
 	@Enumerated(EnumType.STRING)
-    @Column(name = "RATING")
-    private EventRating rating;
+	@Column(name = "RATING")
+	private EventRating rating;
 
-    @Column(name = "DATE")
-    private Date date;
+	@Column(name = "DATE")
+	private Date date;
 
 	public EventRating getRating() {
 		return rating;
@@ -35,9 +42,9 @@ public class Event extends DomainObject{
 	}
 
 	public Event() {
-    }
+	}
 
-    public String getName() {
+	public String getName() {
 		return name;
 	}
 
@@ -53,28 +60,28 @@ public class Event extends DomainObject{
 		this.basePrice = basePrice;
 	}
 
-    public Date getDate() {
-        return date;
-    }
+	public Date getDate() {
+		return date;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-    @Override
+	@Override
 	public int hashCode() {
 		return Objects.hash(name);
 	}
 
-    public Auditorium getAuditorium() {
-        return auditorium;
-    }
+	public Auditorium getAuditorium() {
+		return auditorium;
+	}
 
-    public void setAuditorium(Auditorium auditorium) {
-        this.auditorium = auditorium;
-    }
+	public void setAuditorium(Auditorium auditorium) {
+		this.auditorium = auditorium;
+	}
 
-    @Override
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -96,15 +103,9 @@ public class Event extends DomainObject{
 		return true;
 	}
 
-    @Override
-    public String toString() {
-        return "Event{" +
-				"id= " + super.getId() +
-                " name='" + name + '\'' +
-                ", auditorium=" + auditorium +
-                ", basePrice=" + basePrice +
-                ", rating=" + rating +
-                ", date=" + date +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Event{" + "id= " + super.getId() + " name='" + name + '\'' + ", auditorium=" + auditorium
+				+ ", basePrice=" + basePrice + ", rating=" + rating + ", date=" + date + '}';
+	}
 }

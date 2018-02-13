@@ -46,7 +46,7 @@ public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
 	@Transactional
 	@Rollback(true)
-	@Test(groups = TestConstants.GROUP_USER_TEST, description = "Testing User save() and getByEmail(), remove()")
+	@Test(groups = TestConstants.GROUP_USER_TEST, description = "Testing User getById()")
 	public void userServiceGetByIdTest() {
 		userService.save(user);
 		User expectedUser = userService.getAll().stream().findAny().get();

@@ -1,19 +1,7 @@
-/target/
-.classpath
-.project
-.settings
-<<<<<<< HEAD
-
 /target/*
+/test-output/*
 .classpath
 .project
 .springBeans
 *.iml
 .idea/*
-=======
-/target/*
-.project
-.settings/*
-.idea/*
-*.iml
->>>>>>> origin/master
