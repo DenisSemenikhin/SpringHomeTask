@@ -122,7 +122,7 @@ public class AuditoriumServiceTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Transactional
-	@Rollback(false)
+	@Rollback(true)
 	@Test(groups = TestConstants.GROUP_AUDITORIUM_TEST, description = "Testing Auditorium getByName()")
 	public void getSetofVipSeatsInAuditoriumTest() {
 		auditoriumService.save(auditorium);

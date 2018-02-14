@@ -19,7 +19,7 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User user;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Event event;
 
 	@Column(name = "DATETIME")

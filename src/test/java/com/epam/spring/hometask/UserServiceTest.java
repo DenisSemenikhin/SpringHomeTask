@@ -1,8 +1,5 @@
 package com.epam.spring.hometask;
 
-import com.epam.spring.hometask.domain.User;
-import com.epam.spring.hometask.service.UserService;
-import com.epam.spring.hometask.spring.config.AppTestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import com.epam.spring.hometask.domain.User;
+import com.epam.spring.hometask.service.UserService;
+import com.epam.spring.hometask.spring.config.AppTestConfig;
 
 @ContextConfiguration(classes = { AppTestConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTests {
@@ -38,10 +39,9 @@ public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTes
 	@Test(groups = TestConstants.GROUP_USER_TEST, description = "Testing User save() and getByEmail(), remove()")
 	public void userServiceSaveTest() {
 		userService.save(user);
-		Assert.assertTrue(userService.getAll().size() == 1);
+		Assert.assertTrue(userService.getAll().size() >= 1);
 		Assert.assertEquals(user, userService.getUserByEmail(EMAIL));
-		Assert.assertEquals(true,userService.remove(user));
-		Assert.assertTrue(userService.getAll().size() == 0);
+		Assert.assertEquals(true, userService.remove(user));
 	}
 
 	@Transactional
@@ -53,6 +53,5 @@ public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTes
 		Long Id = expectedUser.getId();
 		Assert.assertTrue(expectedUser.equals(userService.getById(Id)));
 	}
-
 
 }

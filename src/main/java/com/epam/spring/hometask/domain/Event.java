@@ -2,6 +2,8 @@ package com.epam.spring.hometask.domain;
 
 import java.sql.Date;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
@@ -10,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +35,17 @@ public class Event extends DomainObject {
 
 	@Column(name = "DATE")
 	private Date date;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "event", orphanRemoval = true)
+	private Set<Ticket> tickets = new TreeSet<>();
+
+	public Set<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(Set<Ticket> tickets) {
+		this.tickets = tickets;
+	}
 
 	public EventRating getRating() {
 		return rating;

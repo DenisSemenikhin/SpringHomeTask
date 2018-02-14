@@ -1,86 +1,132 @@
 package com.epam.spring.hometask;
 
-/*
-@ContextConfiguration(classes = { AppConfig.class }, loader = AnnotationConfigContextLoader.class)
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.transaction.annotation.Transactional;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.epam.spring.hometask.discount.impl.BirthdayDiscount;
+import com.epam.spring.hometask.discount.impl.LuckyTicketDiscount;
+import com.epam.spring.hometask.domain.Discount;
+import com.epam.spring.hometask.domain.User;
+import com.epam.spring.hometask.service.DiscountCRUDService;
+import com.epam.spring.hometask.service.impl.UserServiceImpl;
+import com.epam.spring.hometask.spring.config.AppTestConfig;
+
+@ContextConfiguration(classes = { AppTestConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class DiscountServiceTest extends AbstractTestNGSpringContextTests {
 
-	// User
-	private static final Long USER_ID = 1l;
-	private static final String USER_FIRST_NAME = "Den";
-	private static final String USER_LAST_NAME = "Semenikhin";
-	private static final String USER_EMAIL = "fromrussia@withlove.com";
-	private static final LocalDate USER_BIRTHDAY = LocalDate.of(1985, 5, 15);
+	private static final String FIRST_NAME = "Den";
+	private static final String LAST_NAME = "Semenikhin";
+	private static final String EMAIL = "fromrussia@withlove.com";
+	private static final Date USER_BIRTH_DATE = Date.valueOf("2000-01-01");
 
-	// Event
-	private static final Long ID_EVENT = 1l;
-	private static final String EVENT_NAME = "EPAM";
-	private static final double EVENT_PRICE = 100.0;
-	private static final EventRating EVENT_RATING = EventRating.HIGH;
-
-	// Expected discount
-	private static final double EXPECTED_HAPPY_DISCOUNT = 50;
-	private static final double EXPECTED_BIRTHDAY_DISCOUNT = 5;
+	private static final String DISCOUNT_TEST_NAME = "Test_Discount";
+	private static final int DISCOUNT_VALUE = 50;
+	private static final String DISCOUNT_LUCKY_TEST_NAME = "Lucky Discount";
+	private static final String DISCOUNT_BIRTHDAY_TEST_NAME = "Birthtday Discount";
+	private static final int BIRTHDAY_DISCOUNT_VALUE = 5;
 
 	@Autowired
-	@Qualifier("discountServiceImpl")
-	private DiscountService discountService;
+	private DiscountCRUDService discountCRUDService;
+
+	@Autowired
+	private UserServiceImpl userServiceImpl;
+
+	private Discount discount;
+	private Discount luckyDiscount;
+	private Discount birthdayDiscount;
 	private User user;
-	private Event event;
 
-	private static int dayOfMonthUserBirthday;
-	private static int monthOfUserBirthday;
-
-	@BeforeClass
+	@BeforeMethod
 	public void initTest() {
+		discount = new Discount();
+		discount.setDiscountName(DISCOUNT_TEST_NAME);
+		discount.setDiscountValue(DISCOUNT_VALUE);
+
+		luckyDiscount = new Discount();
+		luckyDiscount.setDiscountName(DISCOUNT_LUCKY_TEST_NAME);
+		luckyDiscount.setDiscountValue(DISCOUNT_VALUE);
+
+		birthdayDiscount = new Discount();
+		birthdayDiscount.setDiscountName(DISCOUNT_BIRTHDAY_TEST_NAME);
+		birthdayDiscount.setDiscountValue(BIRTHDAY_DISCOUNT_VALUE);
+
 		user = new User();
-		user.setId(USER_ID);
-		user.setFirstName(USER_FIRST_NAME);
-		user.setLastName(USER_LAST_NAME);
-		user.setEmail(USER_EMAIL);
-		user.setDateBirthday(USER_BIRTHDAY);
+		user.setFirstName(FIRST_NAME);
+		user.setLastName(LAST_NAME);
+		user.setEmail(EMAIL);
+		user.setDateBirthday(USER_BIRTH_DATE);
+		user.setRegistrationStatus(true);
+		userServiceImpl.save(user);
 
-		event = new Event();
-		event.setId(ID_EVENT);
-		event.setName(EVENT_NAME);
-		event.setBasePrice(EVENT_PRICE);
-		event.setRating(EVENT_RATING);
-
-		dayOfMonthUserBirthday = USER_BIRTHDAY.getMonthValue();
-		monthOfUserBirthday = USER_BIRTHDAY.getDayOfMonth();
 	}
 
-	@Test(description = "invoke lucky discount")
-	public void getDiscountEachTenthTicket() {
-		LocalDateTime airDateTime = LocalDateTime
-				.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).minusDays(2);
-        Discount discount = discountService.getDiscount(user, event, airDateTime, 20);
-		double discountActual =discount.getDiscountValue();
-		Assert.assertEquals(discountActual, EXPECTED_HAPPY_DISCOUNT);
+	@Transactional
+	@Rollback(false)
+	@Test(groups = TestConstants.GROUP_DISCOUNT_TEST, description = "Testing Discount Save, Remove and getByID")
+	public void discountServiceSaveRemoveandGetByIDTest() {
+		discountCRUDService.save(discount);
+		Assert.assertTrue(!discountCRUDService.getAll().isEmpty());
+		Discount expectedDiscount = discountCRUDService.getAll().stream().findAny().get();
+		Long Id = expectedDiscount.getId();
+		Assert.assertTrue(expectedDiscount.equals(discountCRUDService.getById(Id)));
+		Assert.assertEquals(true, discountCRUDService.remove(discount));
 	}
 
-	@Test(description = "invoke birthday discount")
-	public void getDiscountBirthday() {
-		LocalDateTime airDateTimeEventOnTime = LocalDateTime.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday,
-				monthOfUserBirthday, 00, 00);
-        Discount discount = discountService.getDiscount(user, event, airDateTimeEventOnTime, 9);
-		double discountActualWithinOneDay = discount.getDiscountValue();
-		Assert.assertEquals(discountActualWithinOneDay, EXPECTED_BIRTHDAY_DISCOUNT);
-		LocalDateTime airDateTimeEventFiveDay = LocalDateTime
-				.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).plusDays(5);
-		discount = discountService.getDiscount(user, event, airDateTimeEventFiveDay, 9);
-		double discountActualWithinFiveDay = discount.getDiscountValue();
-		Assert.assertEquals(discountActualWithinFiveDay, EXPECTED_BIRTHDAY_DISCOUNT);
+	@Transactional
+	@Rollback(true)
+	@Test(groups = TestConstants.GROUP_DISCOUNT_TEST, description = "Testing Discount getByName()")
+	public void getByNameDiscountTest() {
+		discountCRUDService.save(discount);
+		Discount expectedDiscount = discountCRUDService.getAll().stream().findAny().get();
+		String name = expectedDiscount.getDiscountName();
+		Assert.assertTrue(expectedDiscount.equals(discountCRUDService.getByName(name)));
 	}
 
-	@Test(description = "invoke all discounts")
-	public void getDiscountMatchAlllRequirements() {
-		LocalDateTime airDateTimeEventFiveDay = LocalDateTime
-				.of(USER_BIRTHDAY.getYear() + 15, dayOfMonthUserBirthday, monthOfUserBirthday, 00, 00).plusDays(2);
-
-        Discount discount = discountService.getDiscount(user, event, airDateTimeEventFiveDay, 10);
-		double discountActualWithinFiveDay = discount.getDiscountValue();
-
-		Assert.assertEquals(discountActualWithinFiveDay, EXPECTED_HAPPY_DISCOUNT);
+	@Transactional
+	@Rollback(true)
+	@Test(groups = TestConstants.GROUP_DISCOUNT_TEST, description = "Testing LuckyDiscount()")
+	public void getLuckyDiscountForEachTenthTicketTest() {
+		LocalDateTime airDateTime = LocalDateTime.of(USER_BIRTH_DATE.toLocalDate(), LocalTime.now());
+		discountCRUDService.save(luckyDiscount);
+		LuckyTicketDiscount luckyTicketDiscount = new LuckyTicketDiscount(
+				discountCRUDService.getByName(DISCOUNT_LUCKY_TEST_NAME), 10);
+		User testedUser = userServiceImpl.getById(user.getId());
+		Discount expectedDiscount = luckyTicketDiscount.getDiscount(testedUser, airDateTime, 20);
+		Assert.assertEquals(DISCOUNT_VALUE, expectedDiscount.getDiscountValue());
+		expectedDiscount = luckyTicketDiscount.getDiscount(testedUser, airDateTime, 19);
+		Assert.assertEquals(0, expectedDiscount.getDiscountValue());
 	}
 
-}*/
+	@Transactional
+	@Rollback(true)
+	@Test(groups = TestConstants.GROUP_DISCOUNT_TEST, description = "Testing BirthdayDiscount()")
+	public void getBirthdayDiscountTest() {
+		discountCRUDService.save(birthdayDiscount);
+		BirthdayDiscount testedBirthdayDiscount = new BirthdayDiscount(
+				discountCRUDService.getById(birthdayDiscount.getId()));
+		User testedUser = userServiceImpl.getById(user.getId());
+		LocalDateTime airDateTime = LocalDateTime.of(USER_BIRTH_DATE.toLocalDate(), LocalTime.now());
+		airDateTime = airDateTime.withYear(LocalDate.now().getYear());
+		Discount expectedDiscount = testedBirthdayDiscount.getDiscount(testedUser, airDateTime.minusDays(2), 20);
+		Assert.assertEquals(BIRTHDAY_DISCOUNT_VALUE, expectedDiscount.getDiscountValue());
+		expectedDiscount = testedBirthdayDiscount.getDiscount(testedUser, airDateTime.minusDays(6), 20);
+		Assert.assertEquals(0, expectedDiscount.getDiscountValue());
+		expectedDiscount = testedBirthdayDiscount.getDiscount(testedUser, airDateTime.plusDays(2), 20);
+		Assert.assertEquals(BIRTHDAY_DISCOUNT_VALUE, expectedDiscount.getDiscountValue());
+		expectedDiscount = testedBirthdayDiscount.getDiscount(testedUser, airDateTime.plusDays(6), 20);
+		Assert.assertEquals(0, expectedDiscount.getDiscountValue());
+	}
+
+}
